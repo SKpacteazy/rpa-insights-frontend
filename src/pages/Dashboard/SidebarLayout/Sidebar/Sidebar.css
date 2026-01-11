@@ -1,0 +1,45 @@
+.sidebar-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 30;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+}
+
+.sidebar-overlay.open {
+    display: block;
+}
+
+.sidebar-header {
+    padding: 0 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-logo-container {
+    width: 32px;
+    height: 32px;
+    background-color: var(--uipath-orange);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.sidebar-title {
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.menu-item-logout {
+    margin-top: 2rem;
+}
+
+.logout-btn {
+    color: #ef4444;
+}
