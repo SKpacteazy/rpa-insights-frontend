@@ -1,0 +1,350 @@
+{
+  "summary_cards": [
+    {
+      "id": 1,
+      "title": "Total Items",
+      "value": "45,532",
+      "change": "+24%",
+      "is_positive": true,
+      "icon": "ClipboardList"
+    },
+    {
+      "id": 2,
+      "title": "New Items",
+      "value": "3,847",
+      "change": "+24%",
+      "is_positive": true,
+      "icon": "PlusSquare"
+    },
+    {
+      "id": 3,
+      "title": "In Progress",
+      "value": "1,234",
+      "change": "+12%",
+      "is_positive": true,
+      "icon": "Clock"
+    },
+    {
+      "id": 4,
+      "title": "Successful",
+      "value": "38,421",
+      "change": "+8%",
+      "is_positive": true,
+      "icon": "CheckSquare"
+    },
+    {
+      "id": 5,
+      "title": "Failed",
+      "value": "1,289",
+      "change": "+3%",
+      "is_positive": false,
+      "icon": "XCircle"
+    },
+    {
+      "id": 6,
+      "title": "Abandoned",
+      "value": "342",
+      "change": "-2%",
+      "is_positive": true,
+      "icon": "AlertCircle"
+    },
+    {
+      "id": 7,
+      "title": "Retried",
+      "value": "876",
+      "change": "+5%",
+      "is_positive": true,
+      "icon": "RotateCw"
+    },
+    {
+      "id": 8,
+      "title": "Deleted",
+      "value": "225",
+      "change": "-1%",
+      "is_positive": true,
+      "icon": "Trash2"
+    }
+  ],
+  "demand_trend": {
+    "metrics": {
+      "created": "47.8K",
+      "completed": "42.3K",
+      "backlog": "5,481"
+    },
+    "data": [
+      {
+        "time": "00:00",
+        "created": 1500,
+        "completed": 1000
+      },
+      {
+        "time": "02:00",
+        "created": 2400,
+        "completed": 1800
+      },
+      {
+        "time": "04:00",
+        "created": 1900,
+        "completed": 1200
+      },
+      {
+        "time": "06:00",
+        "created": 2700,
+        "completed": 2000
+      },
+      {
+        "time": "08:00",
+        "created": 2200,
+        "completed": 1500
+      },
+      {
+        "time": "10:00",
+        "created": 3000,
+        "completed": 2100
+      },
+      {
+        "time": "12:00",
+        "created": 2300,
+        "completed": 1600
+      },
+      {
+        "time": "14:00",
+        "created": 3200,
+        "completed": 2300
+      },
+      {
+        "time": "16:00",
+        "created": 2600,
+        "completed": 1800
+      },
+      {
+        "time": "18:00",
+        "created": 3400,
+        "completed": 2400
+      },
+      {
+        "time": "20:00",
+        "created": 2900,
+        "completed": 2000
+      },
+      {
+        "time": "22:00",
+        "created": 3600,
+        "completed": 2600
+      }
+    ]
+  },
+  "queue_status": {
+    "total": "45.2K",
+    "breakdown": [
+      {
+        "name": "Successful",
+        "value": 38421,
+        "color": "#2D6A4F",
+        "percentage": "85%"
+      },
+      {
+        "name": "New",
+        "value": 3847,
+        "color": "#20C997",
+        "percentage": "8%"
+      },
+      {
+        "name": "Failed",
+        "value": 1289,
+        "color": "#DC3545",
+        "percentage": "3%"
+      },
+      {
+        "name": "In Progress",
+        "value": 1234,
+        "color": "#FFC107",
+        "percentage": "3%"
+      },
+      {
+        "name": "Abandoned",
+        "value": 342,
+        "color": "#E9ECEF",
+        "percentage": "1%"
+      }
+    ]
+  },
+  "queue_aging": {
+    "avg_wait": {
+      "value": "4.2 min",
+      "change": "-12% from yesterday",
+      "is_positive": true
+    },
+    "max_age": {
+      "value": "2.4 hrs",
+      "change": "+8% from yesterday",
+      "is_positive": false
+    },
+    "threshold_alert": "342 items beyond threshold",
+    "distribution": [
+      {
+        "range": "0-5 min",
+        "count": 8234,
+        "color": "#819D99"
+      },
+      {
+        "range": "5-15 min",
+        "count": 3847,
+        "color": "#819D99"
+      },
+      {
+        "range": "15-30 min",
+        "count": 1621,
+        "color": "#FCD34D"
+      },
+      {
+        "range": "30-60 min",
+        "count": 789,
+        "color": "#E0807D"
+      },
+      {
+        "range": ">60 min",
+        "count": 342,
+        "color": "#D35555"
+      }
+    ]
+  },
+  "processing_performance": {
+    "metrics": {
+      "avg": "2.8 sec",
+      "median": "1.9 sec"
+    },
+    "data": [
+      {
+        "time": "00:00",
+        "value": 1.5
+      },
+      {
+        "time": "04:00",
+        "value": 2.2
+      },
+      {
+        "time": "08:00",
+        "value": 1.8
+      },
+      {
+        "time": "12:00",
+        "value": 2.6
+      },
+      {
+        "time": "16:00",
+        "value": 2.1
+      },
+      {
+        "time": "20:00",
+        "value": 2.9
+      },
+      {
+        "time": "22:00",
+        "value": 2.4
+      }
+    ]
+  },
+  "queue_benchmark": [
+      {
+        "id": 1,
+        "name": "Payment Processing",
+        "icon": "ArrowUp",
+        "icon_bg": "#ECFDF5",
+        "icon_color": "#059669",
+        "items_processed": "12,847",
+        "avg_wait": "2.1 min",
+        "avg_processing": "1.8 sec",
+        "failure_rate": {
+          "value": "0.8%",
+          "trend": "up",
+          "is_good": true
+        },
+        "retry_rate": "1.2%",
+        "performance": {
+          "score": 95,
+          "color": "#10B981"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Email Notification",
+        "icon": "Split",
+        "icon_bg": "#ECFDF5",
+        "icon_color": "#059669",
+        "items_processed": "8,234",
+        "avg_wait": "3.4 min",
+        "avg_processing": "2.3 sec",
+        "failure_rate": {
+          "value": "1.5%",
+          "trend": "up",
+          "is_good": true
+        },
+        "retry_rate": "2.1%",
+        "performance": {
+          "score": 88,
+          "color": "#1F4E56"
+        }
+      },
+      {
+        "id": 3,
+        "name": "Data Validation",
+        "icon": "CheckCircle2",
+        "icon_bg": "#ECFDF5",
+        "icon_color": "#059669",
+        "items_processed": "15,621",
+        "avg_wait": "5.2 min",
+        "avg_processing": "3.1 sec",
+        "failure_rate": {
+          "value": "2.8%",
+          "trend": "neutral",
+          "is_good": false
+        },
+        "retry_rate": "3.5%",
+        "performance": {
+          "score": 82,
+          "color": "#1F4E56"
+        }
+      },
+      {
+        "id": 4,
+        "name": "Report Generation",
+        "icon": "Layers",
+        "icon_bg": "#ECFDF5",
+        "icon_color": "#059669",
+        "items_processed": "3,421",
+        "avg_wait": "8.7 min",
+        "avg_processing": "4.8 sec",
+        "failure_rate": {
+          "value": "4.2%",
+          "trend": "down",
+          "is_good": false
+        },
+        "retry_rate": "5.8%",
+        "performance": {
+          "score": 72,
+          "color": "#FBBF24"
+        }
+      },
+      {
+        "id": 5,
+        "name": "Image Processing",
+        "icon": "ArrowUp",
+        "icon_bg": "#FEF2F2",
+        "icon_color": "#DC2626",
+        "items_processed": "5,111",
+        "avg_wait": "12.4 min",
+        "avg_processing": "8.7 sec",
+        "failure_rate": {
+          "value": "6.8%",
+          "trend": "down",
+          "is_good": false
+        },
+        "retry_rate": "8.9%",
+        "performance": {
+          "score": 58,
+          "color": "#DC2626"
+        }
+      }
+    ]
+}
