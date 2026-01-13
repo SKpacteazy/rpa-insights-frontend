@@ -60,17 +60,17 @@
     border: 1px solid #E5E7EB;
 }
 
-.form-group {
+.config-form .form-group {
     margin-bottom: 20px;
 }
 
-.form-group-row {
+.config-form .form-group-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.form-group label {
+.config-form .form-group label {
     display: block;
     font-size: 14px;
     font-weight: 500;
@@ -78,7 +78,7 @@
     color: #374151;
 }
 
-.form-group input {
+.config-form .form-group input {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #D1D5DB;
@@ -87,24 +87,24 @@
     transition: all 0.2s;
 }
 
-.form-group input:focus {
+.config-form .form-group input:focus {
     outline: none;
     border-color: #3B82F6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.form-group small {
+.config-form .form-group small {
     display: block;
     margin-top: 6px;
     font-size: 12px;
     color: #9CA3AF;
 }
 
-.password-input-wrapper {
+.config-form .password-input-wrapper {
     position: relative;
 }
 
-.toggle-visibility {
+.config-form .toggle-visibility {
     position: absolute;
     right: 12px;
     top: 50%;
