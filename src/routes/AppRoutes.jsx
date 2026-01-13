@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage/LoginPage';
 import DashboardLayout from '../pages/Dashboard/DashboardLayout/DashboardLayout';
 import DashboardHome from '../pages/Dashboard/SidebarLayout/components/DashboardHome/DashboardHome';
 import DashboardTwo from '../pages/Dashboard/SidebarLayout/components/DashboardTwo/DashboardTwo';
+import UiPathConfiguration from '../pages/Configuration/UiPathConfiguration';
 
 const PrivateRoute = () => {
     const { isAuthenticated, loading } = useAuth();
@@ -21,11 +22,12 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/login" element={<LoginPage />} />
 
-            {/* <Route element={<PrivateRoute />}> */}
-            <Route>
+            <Route element={<PrivateRoute />}>
+                {/* <Route> */}
                 <Route path="/" element={<DashboardLayout />}>
                     <Route index element={<DashboardHome />} />
                     <Route path="dashboard-2" element={<DashboardTwo />} />
+                    <Route path="configuration" element={<UiPathConfiguration />} />
                     <Route path="settings" element={<div className="dashboard-page"><h1>Settings</h1></div>} />
                 </Route>
             </Route>
