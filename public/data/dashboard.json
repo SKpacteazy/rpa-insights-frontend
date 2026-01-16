@@ -240,111 +240,462 @@
         "value": 2.9
       },
       {
-        "time": "22:00",
+        "time": "22",
         "value": 2.4
       }
     ]
   },
   "queue_benchmark": [
+    {
+      "id": 1,
+      "name": "Payment Processing",
+      "icon": "ArrowUp",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#059669",
+      "items_processed": "12,847",
+      "avg_wait": "2.1 min",
+      "avg_processing": "1.8 sec",
+      "failure_rate": {
+        "value": "0.8%",
+        "trend": "up",
+        "is_good": true
+      },
+      "retry_rate": "1.2%",
+      "performance": {
+        "score": 95,
+        "color": "#10B981"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Email Notification",
+      "icon": "Split",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#059669",
+      "items_processed": "8,234",
+      "avg_wait": "3.4 min",
+      "avg_processing": "2.3 sec",
+      "failure_rate": {
+        "value": "1.5%",
+        "trend": "up",
+        "is_good": true
+      },
+      "retry_rate": "2.1%",
+      "performance": {
+        "score": 88,
+        "color": "#1F4E56"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Data Validation",
+      "icon": "CheckCircle2",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#059669",
+      "items_processed": "15,621",
+      "avg_wait": "5.2 min",
+      "avg_processing": "3.1 sec",
+      "failure_rate": {
+        "value": "2.8%",
+        "trend": "neutral",
+        "is_good": false
+      },
+      "retry_rate": "3.5%",
+      "performance": {
+        "score": 82,
+        "color": "#1F4E56"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Report Generation",
+      "icon": "Layers",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#059669",
+      "items_processed": "3,421",
+      "avg_wait": "8.7 min",
+      "avg_processing": "4.8 sec",
+      "failure_rate": {
+        "value": "4.2%",
+        "trend": "down",
+        "is_good": false
+      },
+      "retry_rate": "5.8%",
+      "performance": {
+        "score": 72,
+        "color": "#FBBF24"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Image Processing",
+      "icon": "ArrowUp",
+      "icon_bg": "#FEF2F2",
+      "icon_color": "#DC2626",
+      "items_processed": "5,111",
+      "avg_wait": "12.4 min",
+      "avg_processing": "8.7 sec",
+      "failure_rate": {
+        "value": "6.8%",
+        "trend": "down",
+        "is_good": false
+      },
+      "retry_rate": "8.9%",
+      "performance": {
+        "score": 58,
+        "color": "#DC2626"
+      }
+    }
+  ],
+  "sla_monitoring": {
+    "compliance": {
+      "percentage": 92.3,
+      "target": 95,
+      "breach_count": 234
+    },
+    "breach_metrics": {
+      "total_items": 234,
+      "change": "+15%",
+      "is_positive": false,
+      "avg_duration": "18.4 min",
+      "duration_change": "-3%",
+      "duration_positive": true
+    },
+    "breach_trend": [
+      { "day": "Mon", "breaches": 18 },
+      { "day": "Tue", "breaches": 36 },
+      { "day": "Wed", "breaches": 22 },
+      { "day": "Thu", "breaches": 42 },
+      { "day": "Fri", "breaches": 28 },
+      { "day": "Sat", "breaches": 48 },
+      { "day": "Sun", "breaches": 56 }
+    ],
+    "recent_breaches": [
       {
         "id": 1,
         "name": "Payment Processing",
-        "icon": "ArrowUp",
-        "icon_bg": "#ECFDF5",
-        "icon_color": "#059669",
-        "items_processed": "12,847",
-        "avg_wait": "2.1 min",
-        "avg_processing": "1.8 sec",
-        "failure_rate": {
-          "value": "0.8%",
-          "trend": "up",
-          "is_good": true
-        },
-        "retry_rate": "1.2%",
-        "performance": {
-          "score": 95,
-          "color": "#10B981"
-        }
+        "time": "2h ago",
+        "count": 34
       },
       {
         "id": 2,
         "name": "Email Notification",
-        "icon": "Split",
-        "icon_bg": "#ECFDF5",
-        "icon_color": "#059669",
-        "items_processed": "8,234",
-        "avg_wait": "3.4 min",
-        "avg_processing": "2.3 sec",
-        "failure_rate": {
-          "value": "1.5%",
-          "trend": "up",
-          "is_good": true
-        },
-        "retry_rate": "2.1%",
-        "performance": {
-          "score": 88,
-          "color": "#1F4E56"
-        }
+        "time": "4h ago",
+        "count": 28
       },
       {
         "id": 3,
         "name": "Data Validation",
-        "icon": "CheckCircle2",
-        "icon_bg": "#ECFDF5",
-        "icon_color": "#059669",
-        "items_processed": "15,621",
-        "avg_wait": "5.2 min",
-        "avg_processing": "3.1 sec",
-        "failure_rate": {
-          "value": "2.8%",
-          "trend": "neutral",
-          "is_good": false
-        },
-        "retry_rate": "3.5%",
-        "performance": {
-          "score": 82,
-          "color": "#1F4E56"
-        }
+        "time": "6h ago",
+        "count": 19
       },
       {
         "id": 4,
         "name": "Report Generation",
-        "icon": "Layers",
-        "icon_bg": "#ECFDF5",
-        "icon_color": "#059669",
-        "items_processed": "3,421",
-        "avg_wait": "8.7 min",
-        "avg_processing": "4.8 sec",
-        "failure_rate": {
-          "value": "4.2%",
-          "trend": "down",
-          "is_good": false
+        "time": "8h ago",
+        "count": 15
+      }
+    ],
+    "status_metrics": {
+      "close_to_breach": {
+        "value": 89,
+        "label": "Items",
+        "title": "Close to SLA Breach",
+        "change": "+12%",
+        "is_positive": false
+      },
+      "breached": {
+        "value": 234,
+        "label": "Items",
+        "title": "Breached SLA",
+        "change": "+15%",
+        "is_positive": false
+      },
+      "aging_rate": {
+        "value": "12.8%",
+        "title": "Aging Breach Rate",
+        "change": "+2.1%",
+        "is_positive": false
+      }
+    },
+    "aging_analysis": {
+      "title": "Aging vs SLA Threshold Analysis",
+      "data": [
+        {
+          "range": "0-30m",
+          "safe": 142,
+          "at_risk": 34,
+          "breached": 8
         },
-        "retry_rate": "5.8%",
-        "performance": {
-          "score": 72,
-          "color": "#FBBF24"
+        {
+          "range": "30-60m",
+          "safe": 98,
+          "at_risk": 56,
+          "breached": 19
+        },
+        {
+          "range": "60-90m",
+          "safe": 67,
+          "at_risk": 78,
+          "breached": 34
+        },
+        {
+          "range": ">90m",
+          "safe": 12,
+          "at_risk": 54,
+          "breached": 103
         }
+      ]
+    },
+    "exception_analysis": {
+      "total_failures": 1289,
+      "breakdown": [
+        {
+          "name": "Business Exception",
+          "value": 748,
+          "percentage": 58,
+          "color": "#DC2626"
+        },
+        {
+          "name": "System Exception",
+          "value": 412,
+          "percentage": 32,
+          "color": "#F59E0B"
+        },
+        {
+          "name": "Application Error",
+          "value": 129,
+          "percentage": 10,
+          "color": "#6B7280"
+        }
+      ]
+    },
+    "failures_by_queue": [
+      { "queue": "Payment Processing", "failures": 342 },
+      { "queue": "Email Notification", "failures": 287 },
+      { "queue": "Data Validation", "failures": 234 },
+      { "queue": "Report Generation", "failures": 198 },
+      { "queue": "Image Processing", "failures": 156 },
+      { "queue": "File Upload", "failures": 72 }
+    ],
+    "retry_metrics": {
+      "retry_rate": {
+        "value": "19.4%",
+        "change": "+3.2%",
+        "is_positive": false
+      },
+      "avg_retry_count": {
+        "value": "2.3",
+        "change": "+0.4",
+        "is_positive": false
+      },
+      "retry_success": {
+        "value": "67.8%",
+        "change": "+5.1%",
+        "is_positive": true
+      },
+      "distribution": [
+        { "retries": "1 retry", "count": 423 },
+        { "retries": "2 retries", "count": 287 },
+        { "retries": "3 retries", "count": 134 },
+        { "retries": "4 retries", "count": 45 },
+        { "retries": "5+ retries", "count": 23 }
+      ]
+    },
+    "system_health": {
+      "orphan_items": {
+        "value": 23,
+        "status": "warning"
+      },
+      "zombie_items": {
+        "value": 47,
+        "status": "critical"
+      },
+      "abandoned_rate": {
+        "value": "0.76%",
+        "status": "warning"
+      }
+    },
+    "failure_trend_24h": [
+      { "time": "00:00", "failures": 35 },
+      { "time": "02:00", "failures": 32 },
+      { "time": "04:00", "failures": 34 },
+      { "time": "06:00", "failures": 28 },
+      { "time": "08:00", "failures": 22 },
+      { "time": "10:00", "failures": 18 },
+      { "time": "11:00", "failures": 12, "isLowPoint": true },
+      { "time": "12:00", "failures": 15 },
+      { "time": "14:00", "failures": 25, "spike": true },
+      { "time": "16:00", "failures": 22 },
+      { "time": "18:00", "failures": 20 },
+      { "time": "20:00", "failures": 18 },
+      { "time": "22:00", "failures": 15 },
+      { "time": "24:00", "failures": 12 }
+    ],
+    "top_failure_reasons": [
+      {
+        "id": 1,
+        "reason": "Invalid payment credentials",
+        "count": 187,
+        "percentage": 14.5
+      },
+      {
+        "id": 2,
+        "reason": "Database connection timeout",
+        "count": 156,
+        "percentage": 12.1
+      },
+      {
+        "id": 3,
+        "reason": "API rate limit exceeded",
+        "count": 142,
+        "percentage": 11.0
+      },
+      {
+        "id": 4,
+        "reason": "Missing required field",
+        "count": 128,
+        "percentage": 9.9
       },
       {
         "id": 5,
-        "name": "Image Processing",
-        "icon": "ArrowUp",
-        "icon_bg": "#FEF2F2",
-        "icon_color": "#DC2626",
-        "items_processed": "5,111",
-        "avg_wait": "12.4 min",
-        "avg_processing": "8.7 sec",
-        "failure_rate": {
-          "value": "6.8%",
-          "trend": "down",
-          "is_good": false
-        },
-        "retry_rate": "8.9%",
-        "performance": {
-          "score": 58,
-          "color": "#DC2626"
-        }
+        "reason": "Network connectivity issue",
+        "count": 115,
+        "percentage": 8.9
+      },
+      {
+        "id": 6,
+        "reason": "File not found",
+        "count": 98,
+        "percentage": 7.6
+      },
+      {
+        "id": 7,
+        "reason": "Authentication failed",
+        "count": 87,
+        "percentage": 6.7
+      },
+      {
+        "id": 8,
+        "reason": "Data validation error",
+        "count": 76,
+        "percentage": 5.9
+      },
+      {
+        "id": 9,
+        "reason": "Session expired",
+        "count": 64,
+        "percentage": 5.0
+      },
+      {
+        "id": 10,
+        "reason": "Memory allocation failed",
+        "count": 52,
+        "percentage": 4.0
+      }
+    ],
+    "top_failures_coverage": 78,
+    "failed_queue_items": [
+      {
+        "queue": "Payment Processing",
+        "item_id": "QI-2847",
+        "creation_time": "09:45:23",
+        "failure_time": "09:47:12",
+        "exception_type": "Business",
+        "reason": "Invalid payment credentials",
+        "retry": 2,
+        "sla_status": "Breached"
+      },
+      {
+        "queue": "Email Notification",
+        "item_id": "QI-2846",
+        "creation_time": "09:42:15",
+        "failure_time": "09:46:08",
+        "exception_type": "System",
+        "reason": "SMTP connection timeout",
+        "retry": 3,
+        "sla_status": "At Risk"
+      },
+      {
+        "queue": "Data Validation",
+        "item_id": "QI-2845",
+        "creation_time": "09:40:34",
+        "failure_time": "09:45:22",
+        "exception_type": "Business",
+        "reason": "Missing required field",
+        "retry": 1,
+        "sla_status": "Normal"
+      },
+      {
+        "queue": "Payment Processing",
+        "item_id": "QI-2844",
+        "creation_time": "09:38:56",
+        "failure_time": "09:44:11",
+        "exception_type": "System",
+        "reason": "Database connection lost",
+        "retry": 4,
+        "sla_status": "Breached"
+      },
+      {
+        "queue": "Report Generation",
+        "item_id": "QI-2843",
+        "creation_time": "09:35:12",
+        "failure_time": "09:43:45",
+        "exception_type": "Application",
+        "reason": "Memory limit exceeded",
+        "retry": 2,
+        "sla_status": "At Risk"
+      },
+      {
+        "queue": "Data Validation",
+        "item_id": "QI-2842",
+        "creation_time": "09:32:48",
+        "failure_time": "09:42:33",
+        "exception_type": "Business",
+        "reason": "Duplicate record found",
+        "retry": 1,
+        "sla_status": "Normal"
+      },
+      {
+        "queue": "Email Notification",
+        "item_id": "QI-2841",
+        "creation_time": "09:30:22",
+        "failure_time": "09:41:18",
+        "exception_type": "System",
+        "reason": "Service unavailable (503)",
+        "retry": 3,
+        "sla_status": "Breached"
+      },
+      {
+        "queue": "Payment Processing",
+        "item_id": "QI-2840",
+        "creation_time": "09:28:09",
+        "failure_time": "09:40:05",
+        "exception_type": "Business",
+        "reason": "Insufficient balance",
+        "retry": 0,
+        "sla_status": "Normal"
+      },
+      {
+        "queue": "Image Processing",
+        "item_id": "QI-2839",
+        "creation_time": "09:25:44",
+        "failure_time": "09:38:52",
+        "exception_type": "Application",
+        "reason": "Invalid file format",
+        "retry": 2,
+        "sla_status": "At Risk"
+      },
+      {
+        "queue": "Data Validation",
+        "item_id": "QI-2838",
+        "creation_time": "09:22:31",
+        "failure_time": "09:37:20",
+        "exception_type": "System",
+        "reason": "API rate limit exceeded",
+        "retry": 5,
+        "sla_status": "Breached"
       }
     ]
+  }
 }
