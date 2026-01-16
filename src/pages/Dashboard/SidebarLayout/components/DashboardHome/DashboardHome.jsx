@@ -36,6 +36,8 @@ import {
     Area
 } from 'recharts';
 import './DashboardHome.css';
+import { useAuth } from '../../../../../auth/AuthContext';
+import { DashboardService } from '../../../../../services/dashboardService';
 
 const IconMap = {
     "ClipboardList": ClipboardList,
@@ -68,20 +70,161 @@ const ColorMap = {
 };
 
 const DashboardHome = () => {
+    const { axiosInstance } = useAuth();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!axiosInstance) return;
+
             try {
-                const response = await fetch('/data/dashboard.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const jsonData = await response.json();
-                setData(jsonData);
+                // Calculate Last 7 Days (default view)
+                const end = new Date();
+                const start = new Date();
+                start.setDate(start.getDate() - 7);
+
+                const formatDate = (date) => {
+                    const pad = (num) => num.toString().padStart(2, '0');
+                    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+                };
+
+                const startDateStr = formatDate(start);
+                const endDateStr = formatDate(end);
+
+                const service = DashboardService(axiosInstance);
+                const [volume, trend, statusDist, aging, perf, benchmark] = await Promise.all([
+                    service.getQueueVolume(startDateStr, endDateStr),
+                    service.getTrend(startDateStr, endDateStr),
+                    service.getStatusDist(startDateStr, endDateStr),
+                    service.getAging(startDateStr, endDateStr),
+                    service.getPerformance(startDateStr, endDateStr),
+                    service.getBenchmarking(startDateStr, endDateStr)
+                ]);
+
+                // --- Transformation Logic ---
+
+                // DATA CLEANUP: Merge "InProgress" values
+                const inProgressCount = (volume['In Progress'] || 0) + (volume['InProgress'] || 0);
+
+                // 1. Summary Cards
+                const summaryCards = [
+                    { id: 1, title: 'Total Items', value: volume['Total Queue Items'] || 0, change: '+0%', is_positive: true, icon: 'Layers' },
+                    { id: 2, title: 'New Items', value: volume['New'] || 0, change: '+0%', is_positive: true, icon: 'PlusSquare' },
+                    { id: 3, title: 'In Progress', value: inProgressCount, change: '0%', is_positive: true, icon: 'RotateCw' },
+                    { id: 4, title: 'Successful', value: volume['Successful'] || 0, change: '+0%', is_positive: true, icon: 'CheckCircle2' },
+                    { id: 5, title: 'Failed', value: volume['Failed'] || 0, change: '-0%', is_positive: false, icon: 'XCircle' },
+                    { id: 6, title: 'Abandoned', value: volume['Abandoned'] || 0, change: '0%', is_positive: false, icon: 'AlertCircle' },
+                    { id: 7, title: 'Retried', value: volume['Retried'] || 0, change: '+0%', is_positive: true, icon: 'RotateCw' },
+                    { id: 8, title: 'Deleted', value: volume['Deleted'] || 0, change: '0%', is_positive: true, icon: 'Trash2' },
+                ];
+
+                // 2. Demand Trend
+                const trendData = trend.created.map((item, index) => {
+                    const d = new Date(item.time_bucket);
+                    const timeLabel = `${d.getDate()}/${d.getMonth() + 1} ${d.getHours()}:00`;
+                    return {
+                        time: timeLabel,
+                        created: item.count,
+                        completed: trend.completed[index]?.count || 0
+                    };
+                });
+
+                const totalCreated = trend.created.reduce((acc, curr) => acc + curr.count, 0);
+                const totalCompleted = trend.completed.reduce((acc, curr) => acc + curr.count, 0);
+                const backlogCount = (volume['New'] || 0) + inProgressCount;
+
+                const demandTrend = {
+                    metrics: {
+                        created: totalCreated.toLocaleString(),
+                        completed: totalCompleted.toLocaleString(),
+                        backlog: backlogCount.toLocaleString()
+                    },
+                    data: trendData
+                };
+
+                // 3. Queue Status
+                const statusColors = {
+                    "New": "#3B82F6", "In Progress": "#6366F1", "Successful": "#10B981",
+                    "Failed": "#EF4444", "Abandoned": "#F59E0B", "Retried": "#8B5CF6", "Deleted": "#9CA3AF"
+                };
+
+                const statusBreakdown = Object.keys(volume)
+                    .filter(k => k !== "Total Queue Items" && volume[k] > 0)
+                    .map(k => ({
+                        name: k,
+                        value: volume[k],
+                        percentage: ((volume[k] / volume['Total Queue Items']) * 100).toFixed(1) + '%',
+                        color: statusColors[k] || "#ccc"
+                    }));
+
+                const queueStatus = {
+                    total: volume['Total Queue Items']?.toLocaleString() || "0",
+                    breakdown: statusBreakdown
+                };
+
+                // 4. Aging
+                const agingDistribution = [
+                    { range: '0-1h', count: aging.aging_buckets['0-1h'], color: '#10B981' },
+                    { range: '1-4h', count: aging.aging_buckets['1-4h'], color: '#3B82F6' },
+                    { range: '4-24h', count: aging.aging_buckets['4-24h'], color: '#F59E0B' },
+                    { range: '24h+', count: aging.aging_buckets['24h+'], color: '#EF4444' }
+                ];
+
+                const queueAging = {
+                    threshold_alert: `${aging.items_beyond_threshold} Items > ${aging.threshold_hours_used}h`,
+                    avg_wait: { value: Math.round(aging.avg_queue_wait_seconds / 60) + 'm', change: '-0%', is_positive: true },
+                    max_age: { value: Math.round(aging.max_queue_age_seconds / 3600) + 'h', change: '+0%', is_positive: false },
+                    distribution: agingDistribution
+                };
+
+                // 5. Performance
+                const perfData = perf.processing_time_trend.map(item => ({
+                    time: new Date(item.time_bucket).getHours() + ':00',
+                    value: Math.round(item.avg_processing_time_seconds)
+                }));
+
+                const processingPerformance = {
+                    metrics: {
+                        avg: Math.round(perf.avg_processing_time_seconds) + 's',
+                        median: Math.round(perf.median_processing_time_seconds) + 's'
+                    },
+                    data: perfData
+                };
+
+                // 6. Benchmarking
+                const queueBenchmark = benchmark.map((item, idx) => ({
+                    id: item.queue_definition_id || idx,
+                    name: `Queue ${item.queue_definition_id}`,
+                    icon: 'ClipboardList',
+                    icon_bg: '#E0E7FF',
+                    icon_color: '#4F46E5',
+                    items_processed: item.items_processed.toLocaleString(),
+                    avg_wait: Math.round(item.avg_wait_seconds) + 's',
+                    avg_processing: Math.round(item.avg_proc_seconds) + 's',
+                    failure_rate: {
+                        value: item.failure_rate_percent + '%',
+                        trend: 'neutral',
+                        is_good: item.failure_rate_percent < 5
+                    },
+                    retry_rate: item.retry_rate_percent + '%',
+                    performance: {
+                        score: Math.max(0, 100 - item.failure_rate_percent),
+                        color: item.failure_rate_percent < 10 ? '#10B981' : '#EF4444'
+                    }
+                }));
+
+                setData({
+                    summary_cards: summaryCards,
+                    demand_trend: demandTrend,
+                    queue_status: queueStatus,
+                    queue_aging: queueAging,
+                    processing_performance: processingPerformance,
+                    queue_benchmark: queueBenchmark
+                });
                 setLoading(false);
+
             } catch (err) {
                 console.error("Error fetching dashboard data:", err);
                 setError(err.message);
@@ -90,7 +233,7 @@ const DashboardHome = () => {
         };
 
         fetchData();
-    }, []);
+    }, [axiosInstance]);
 
     if (loading) return <div className="dashboard-container">Loading dashboard data...</div>;
     if (error) return <div className="dashboard-container">Error loading data: {error}</div>;
@@ -114,7 +257,7 @@ const DashboardHome = () => {
 
     return (
         <div className="dashboard-container">
-         
+
             <div className="dashboard-header">
                 <div className="header-title-group">
                     <h2>
@@ -127,7 +270,7 @@ const DashboardHome = () => {
                 </div>
             </div>
 
-           
+
             <div className="stats-grid">
                 {data.summary_cards && data.summary_cards.map((card) => {
                     const IconComponent = IconMap[card.icon];
@@ -151,9 +294,9 @@ const DashboardHome = () => {
                 })}
             </div>
 
-            
+
             <div className="charts-grid">
-                
+
                 {data.demand_trend && (
                     <div className="chart-card" style={{ position: 'relative' }}>
                         <div className="chart-header">
@@ -175,7 +318,7 @@ const DashboardHome = () => {
                                 </div>
                             </div>
                             <button className="time-filter-btn">
-                                <Clock size={14} /> Last 24 Hours
+                                <Clock size={14} /> Last 7 Days
                             </button>
                         </div>
 
@@ -200,19 +343,17 @@ const DashboardHome = () => {
                                         axisLine={false}
                                         tick={{ fill: '#9CA3AF', fontSize: 11 }}
                                         dy={10}
-                                        interval={0} 
+                                        minTickGap={20}
                                     />
                                     <YAxis
                                         tickLine={false}
                                         axisLine={false}
                                         tick={{ fill: '#9CA3AF', fontSize: 11 }}
-                                        ticks={[0, 2000, 4000, 6000]}
-                                        domain={[0, 6000]}
-                                        tickFormatter={(value) => value === 0 ? '0' : `${value / 1000}k`}
+                                        tickFormatter={(value) => value === 0 ? '0' : (value >= 1000 ? `${value / 1000}k` : value)}
                                     />
                                     <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
                                     <Line
-                                        type="linear" 
+                                        type="linear"
                                         dataKey="created"
                                         stroke="#1F2937"
                                         strokeWidth={2.5}
@@ -250,7 +391,7 @@ const DashboardHome = () => {
                                         cx="50%"
                                         cy="50%"
                                         innerRadius={65}
-                                        outerRadius={90} 
+                                        outerRadius={90}
                                         paddingAngle={0}
                                         dataKey="value"
                                         stroke="none"
