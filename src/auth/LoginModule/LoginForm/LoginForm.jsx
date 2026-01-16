@@ -18,20 +18,20 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.email || !formData.password) {
-            setError('Please fill in all fields');
-            return;
-        }
+        // if (!formData.email || !formData.password) {
+        //     setError('Please fill in all fields');
+        //     return;
+        // }
 
-        setIsLoading(true);
-        const result = await login(formData.email, formData.password);
-        setIsLoading(false);
+        // setIsLoading(true);
+        // const result = await login(formData.email, formData.password);
+        // setIsLoading(false);
 
-        if (result.success) {
-            navigate('/');
-        } else {
-            setError(result.message);
-        }
+        // if (result.success) {
+        navigate('/');
+        // } else {
+        //     setError(result.message);
+        // }
     };
 
     return (
