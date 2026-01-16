@@ -80,18 +80,18 @@ const DashboardHome = () => {
             if (!axiosInstance) return;
 
             try {
-                // Calculate Last 7 Days (default view)
-                const end = new Date();
-                const start = new Date();
-                start.setDate(start.getDate() - 7);
+                // Default: pass null/undefined to let backend fetch ALL data
+                // const end = new Date();
+                // const start = new Date();
+                // start.setDate(start.getDate() - 30);
 
                 const formatDate = (date) => {
                     const pad = (num) => num.toString().padStart(2, '0');
                     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
                 };
 
-                const startDateStr = formatDate(start);
-                const endDateStr = formatDate(end);
+                const startDateStr = null;
+                const endDateStr = null;
 
                 const service = DashboardService(axiosInstance);
                 const [volume, trend, statusDist, aging, perf, benchmark] = await Promise.all([
