@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Activity, Settings, LogOut, Bot, Sliders } from 'lucide-react';
+import { LayoutDashboard, Activity, Settings, LogOut, Bot, Sliders, PieChart } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -39,6 +39,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                         <NavLink to="/dashboard-2" className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}>
                             <Activity size={20} />
                             <span>Dashboard 2</span>
+                        </NavLink>
+                    </li>
+                    <li className="menu-item">
+                        <NavLink to="/dashboard-3" className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}>
+                            <LayoutDashboard size={20} />
+                            <span>Dashboard 3</span>
                         </NavLink>
                     </li>
                     <li className="menu-item">

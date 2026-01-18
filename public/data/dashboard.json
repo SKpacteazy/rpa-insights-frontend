@@ -1,4 +1,153 @@
 {
+  "job_execution_analytics": [
+    {
+      "id": 1,
+      "title": "Total Jobs",
+      "value": "2,847",
+      "growth": "+12%",
+      "icon": "FileText",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#10B981"
+    },
+    {
+      "id": 2,
+      "title": "Pending Jobs",
+      "value": "342",
+      "growth": "+8%",
+      "icon": "Clock",
+      "icon_bg": "#FEF3C7",
+      "icon_color": "#F59E0B"
+    },
+    {
+      "id": 3,
+      "title": "Running Jobs",
+      "value": "89",
+      "growth": "+12%",
+      "icon": "PlayCircle",
+      "icon_bg": "#CCFBF1",
+      "icon_color": "#14B8A6"
+    },
+    {
+      "id": 4,
+      "title": "Successful Jobs",
+      "value": "2,198",
+      "growth": "+12%",
+      "icon": "CheckCircle2",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#10B981"
+    },
+    {
+      "id": 5,
+      "title": "Failed Jobs",
+      "value": "187",
+      "growth": "+12%",
+      "icon": "XCircle",
+      "icon_bg": "#FEF2F2",
+      "icon_color": "#EF4444"
+    },
+    {
+      "id": 6,
+      "title": "Stopped / Terminated",
+      "value": "31",
+      "growth": "+12%",
+      "icon": "Square",
+      "icon_bg": "#F3F4F6",
+      "icon_color": "#6B7280"
+    }
+  ],
+  "job_state_distribution": {
+    "total": "2,847",
+    "data": [
+      {
+        "name": "Successful",
+        "value": 2198,
+        "percentage": "77.2%",
+        "color": "#10B981"
+      },
+      {
+        "name": "Pending",
+        "value": 342,
+        "percentage": "12.0%",
+        "color": "#F59E0B"
+      },
+      {
+        "name": "Failed",
+        "value": 187,
+        "percentage": "6.6%",
+        "color": "#EF4444"
+      },
+      {
+        "name": "Running",
+        "value": 89,
+        "percentage": "3.1%",
+        "color": "#1F4E56"
+      },
+      {
+        "name": "Stopped",
+        "value": 31,
+        "percentage": "1.1%",
+        "color": "#6B7280"
+      }
+    ]
+  },
+  "job_volume_trend": [
+    {
+      "time": "00:00",
+      "Created": 150,
+      "Started": 140,
+      "Completed": 120,
+      "Failed": 40
+    },
+    {
+      "time": "03:00",
+      "Created": 180,
+      "Started": 160,
+      "Completed": 140,
+      "Failed": 45
+    },
+    {
+      "time": "06:00",
+      "Created": 200,
+      "Started": 180,
+      "Completed": 160,
+      "Failed": 50
+    },
+    {
+      "time": "09:00",
+      "Created": 210,
+      "Started": 190,
+      "Completed": 170,
+      "Failed": 55
+    },
+    {
+      "time": "12:00",
+      "Created": 220,
+      "Started": 200,
+      "Completed": 180,
+      "Failed": 60
+    },
+    {
+      "time": "15:00",
+      "Created": 230,
+      "Started": 210,
+      "Completed": 190,
+      "Failed": 65
+    },
+    {
+      "time": "18:00",
+      "Created": 240,
+      "Started": 220,
+      "Completed": 195,
+      "Failed": 70
+    },
+    {
+      "time": "21:00",
+      "Created": 250,
+      "Started": 230,
+      "Completed": 200,
+      "Failed": 75
+    }
+  ],
   "summary_cards": [
     {
       "id": 1,
@@ -362,13 +511,34 @@
       "duration_positive": true
     },
     "breach_trend": [
-      { "day": "Mon", "breaches": 18 },
-      { "day": "Tue", "breaches": 36 },
-      { "day": "Wed", "breaches": 22 },
-      { "day": "Thu", "breaches": 42 },
-      { "day": "Fri", "breaches": 28 },
-      { "day": "Sat", "breaches": 48 },
-      { "day": "Sun", "breaches": 56 }
+      {
+        "day": "Mon",
+        "breaches": 18
+      },
+      {
+        "day": "Tue",
+        "breaches": 36
+      },
+      {
+        "day": "Wed",
+        "breaches": 22
+      },
+      {
+        "day": "Thu",
+        "breaches": 42
+      },
+      {
+        "day": "Fri",
+        "breaches": 28
+      },
+      {
+        "day": "Sat",
+        "breaches": 48
+      },
+      {
+        "day": "Sun",
+        "breaches": 56
+      }
     ],
     "recent_breaches": [
       {
@@ -471,12 +641,30 @@
       ]
     },
     "failures_by_queue": [
-      { "queue": "Payment Processing", "failures": 342 },
-      { "queue": "Email Notification", "failures": 287 },
-      { "queue": "Data Validation", "failures": 234 },
-      { "queue": "Report Generation", "failures": 198 },
-      { "queue": "Image Processing", "failures": 156 },
-      { "queue": "File Upload", "failures": 72 }
+      {
+        "queue": "Payment Processing",
+        "failures": 342
+      },
+      {
+        "queue": "Email Notification",
+        "failures": 287
+      },
+      {
+        "queue": "Data Validation",
+        "failures": 234
+      },
+      {
+        "queue": "Report Generation",
+        "failures": 198
+      },
+      {
+        "queue": "Image Processing",
+        "failures": 156
+      },
+      {
+        "queue": "File Upload",
+        "failures": 72
+      }
     ],
     "retry_metrics": {
       "retry_rate": {
@@ -495,11 +683,26 @@
         "is_positive": true
       },
       "distribution": [
-        { "retries": "1 retry", "count": 423 },
-        { "retries": "2 retries", "count": 287 },
-        { "retries": "3 retries", "count": 134 },
-        { "retries": "4 retries", "count": 45 },
-        { "retries": "5+ retries", "count": 23 }
+        {
+          "retries": "1 retry",
+          "count": 423
+        },
+        {
+          "retries": "2 retries",
+          "count": 287
+        },
+        {
+          "retries": "3 retries",
+          "count": 134
+        },
+        {
+          "retries": "4 retries",
+          "count": 45
+        },
+        {
+          "retries": "5+ retries",
+          "count": 23
+        }
       ]
     },
     "system_health": {
@@ -517,20 +720,64 @@
       }
     },
     "failure_trend_24h": [
-      { "time": "00:00", "failures": 35 },
-      { "time": "02:00", "failures": 32 },
-      { "time": "04:00", "failures": 34 },
-      { "time": "06:00", "failures": 28 },
-      { "time": "08:00", "failures": 22 },
-      { "time": "10:00", "failures": 18 },
-      { "time": "11:00", "failures": 12, "isLowPoint": true },
-      { "time": "12:00", "failures": 15 },
-      { "time": "14:00", "failures": 25, "spike": true },
-      { "time": "16:00", "failures": 22 },
-      { "time": "18:00", "failures": 20 },
-      { "time": "20:00", "failures": 18 },
-      { "time": "22:00", "failures": 15 },
-      { "time": "24:00", "failures": 12 }
+      {
+        "time": "00:00",
+        "failures": 35
+      },
+      {
+        "time": "02:00",
+        "failures": 32
+      },
+      {
+        "time": "04:00",
+        "failures": 34
+      },
+      {
+        "time": "06:00",
+        "failures": 28
+      },
+      {
+        "time": "08:00",
+        "failures": 22
+      },
+      {
+        "time": "10:00",
+        "failures": 18
+      },
+      {
+        "time": "11:00",
+        "failures": 12,
+        "isLowPoint": true
+      },
+      {
+        "time": "12:00",
+        "failures": 15
+      },
+      {
+        "time": "14:00",
+        "failures": 25,
+        "spike": true
+      },
+      {
+        "time": "16:00",
+        "failures": 22
+      },
+      {
+        "time": "18:00",
+        "failures": 20
+      },
+      {
+        "time": "20:00",
+        "failures": 18
+      },
+      {
+        "time": "22:00",
+        "failures": 15
+      },
+      {
+        "time": "24:00",
+        "failures": 12
+      }
     ],
     "top_failure_reasons": [
       {
@@ -697,5 +944,352 @@
         "sla_status": "Breached"
       }
     ]
-  }
+  },
+  "job_time_performance": {
+    "data": [
+      {
+        "day": "Mon",
+        "avg": 2.5,
+        "median": 1.8,
+        "max": 8.5
+      },
+      {
+        "day": "Tue",
+        "avg": 2.8,
+        "median": 2.1,
+        "max": 9.2
+      },
+      {
+        "day": "Wed",
+        "avg": 3.2,
+        "median": 2.4,
+        "max": 9.8
+      },
+      {
+        "day": "Thu",
+        "avg": 3.8,
+        "median": 2.9,
+        "max": 10.5
+      },
+      {
+        "day": "Fri",
+        "avg": 4.1,
+        "median": 3.2,
+        "max": 11.2
+      },
+      {
+        "day": "Sat",
+        "avg": 4.5,
+        "median": 3.5,
+        "max": 11.8
+      },
+      {
+        "day": "Sun",
+        "avg": 5.2,
+        "median": 4.1,
+        "max": 12.5
+      }
+    ]
+  },
+  "failure_stability": {
+    "metrics": {
+      "failure_rate": "6.57%",
+      "total_failures": 187,
+      "mtbf": "2.3h"
+    },
+    "data": [
+      {
+        "day": "Mon",
+        "count": 25,
+        "rate": 6.2
+      },
+      {
+        "day": "Tue",
+        "count": 28,
+        "rate": 5.1
+      },
+      {
+        "day": "Wed",
+        "count": 22,
+        "rate": 5.8
+      },
+      {
+        "day": "Thu",
+        "count": 30,
+        "rate": 5.4
+      },
+      {
+        "day": "Fri",
+        "count": 18,
+        "rate": 6.9
+      },
+      {
+        "day": "Sat",
+        "count": 24,
+        "rate": 6.1
+      },
+      {
+        "day": "Sun",
+        "count": 15,
+        "rate": 6.7
+      }
+    ]
+  },
+  "top_failure_reasons_extended": [
+    { "reason": "Timeout Exception", "count": 45, "percentage": "24.1%" },
+    { "reason": "Application Not Responding", "count": 38, "percentage": "20.3%" },
+    { "reason": "Selector Not Found", "count": 32, "percentage": "17.1%" },
+    { "reason": "Network Connection Lost", "count": 28, "percentage": "15.0%" },
+    { "reason": "Data Validation Failed", "count": 18, "percentage": "9.6%" },
+    { "reason": "File Not Found", "count": 12, "percentage": "6.4%" },
+    { "reason": "Authentication Error", "count": 7, "percentage": "3.7%" },
+    { "reason": "System Resource Error", "count": 4, "percentage": "2.1%" },
+    { "reason": "API Rate Limit", "count": 2, "percentage": "1.1%" }
+  ],
+  "jobs_by_release_health": [
+    {
+      "release_name": "Invoice_Processing_v2",
+      "job_count": 487,
+      "failure_rate": "2.3%",
+      "avg_exec_time": "4.2m",
+      "last_failure": "2h ago",
+      "is_high_risk": false
+    },
+    {
+      "release_name": "Customer_Onboarding",
+      "job_count": 421,
+      "failure_rate": "4.5%",
+      "avg_exec_time": "6.8m",
+      "last_failure": "1h ago",
+      "is_high_risk": true
+    },
+    {
+      "release_name": "Data_Extract_Daily",
+      "job_count": 398,
+      "failure_rate": "1.2%",
+      "avg_exec_time": "3.5m",
+      "last_failure": "5h ago",
+      "is_high_risk": false
+    },
+    {
+      "release_name": "Email_Automation",
+      "job_count": 356,
+      "failure_rate": "8.7%",
+      "avg_exec_time": "2.1m",
+      "last_failure": "30m ago",
+      "is_high_risk": true
+    },
+    {
+      "release_name": "Report_Generation",
+      "job_count": 289,
+      "failure_rate": "3.1%",
+      "avg_exec_time": "12.4m",
+      "last_failure": "3h ago",
+      "is_high_risk": true
+    },
+    {
+      "release_name": "Inventory_Sync",
+      "job_count": 267,
+      "failure_rate": "1.8%",
+      "avg_exec_time": "5.6m",
+      "last_failure": "6h ago",
+      "is_high_risk": false
+    }
+  ],
+  "job_trigger_analysis": {
+    "triggered_vs_manual": {
+      "triggered": 2221,
+      "manual": 626
+    },
+    "attended_vs_unattended": {
+      "unattended": 2420,
+      "attended": 427
+    },
+    "runtime_type": {
+      "production": 1987,
+      "development": 687,
+      "testing": 173
+    }
+  },
+  "long_running_jobs": {
+    "risk_flags": [
+      {
+        "id": "running_beyond",
+        "count": 23,
+        "label": "Running Beyond Threshold",
+        "icon": "AlertTriangle",
+        "color": "#FBBF24"
+      },
+      {
+        "id": "pending_long",
+        "count": 67,
+        "label": "Pending Too Long (>2h)",
+        "icon": "Clock",
+        "color": "#F59E0B"
+      },
+      {
+        "id": "zombie",
+        "count": 8,
+        "label": "Zombie Jobs (No EndTime)",
+        "icon": "XCircle",
+        "color": "#EF4444"
+      }
+    ],
+    "job_list": [
+      {
+        "id": "J-48291",
+        "release": "Email_Automation",
+        "state": "Running",
+        "duration": "47m",
+        "risk": "High"
+      },
+      {
+        "id": "J-48276",
+        "release": "Report_Generation",
+        "state": "Running",
+        "duration": "38m",
+        "risk": "Medium"
+      },
+      {
+        "id": "J-48263",
+        "release": "Data_Extract",
+        "state": "Running",
+        "duration": "35m",
+        "risk": "Medium"
+      },
+      {
+        "id": "J-48245",
+        "release": "Invoice_Process",
+        "state": "Pending",
+        "duration": "2h 15m",
+        "risk": "High"
+      },
+      {
+        "id": "J-48198",
+        "release": "Account_Recon",
+        "state": "Running",
+        "duration": "1h 23m",
+        "risk": "Critical"
+      },
+      {
+        "id": "J-48167",
+        "release": "Inventory_Sync",
+        "state": "Pending",
+        "duration": "3h 42m",
+        "risk": "Critical"
+      }
+    ]
+  },
+  "last_10_failed_jobs": [
+    {
+      "job_id": "J-48302",
+      "release_name": "Account_Reconciliation",
+      "state": "Faulted",
+      "start_time": "14:23:45",
+      "end_time": "14:38:12",
+      "duration": "14m 27s",
+      "job_error": "Timeout Exception: Application not responding after 300s",
+      "source": "Schedule",
+      "machine": "BOT-VM-03"
+    },
+    {
+      "job_id": "J-48298",
+      "release_name": "Email_Automation",
+      "state": "Faulted",
+      "start_time": "14:18:22",
+      "end_time": "14:18:56",
+      "duration": "34s",
+      "job_error": "Selector Not Found: Element #inbox-button",
+      "source": "Manual",
+      "machine": "BOT-VM-07"
+    },
+    {
+      "job_id": "J-48287",
+      "release_name": "Invoice_Processing_v2",
+      "state": "Faulted",
+      "start_time": "14:05:13",
+      "end_time": "14:12:45",
+      "duration": "7m 32s",
+      "job_error": "Data Validation Failed: Invoice total mismatch",
+      "source": "Schedule",
+      "machine": "BOT-VM-01"
+    },
+    {
+      "job_id": "J-48276",
+      "release_name": "Customer_Onboarding",
+      "state": "Faulted",
+      "start_time": "13:52:08",
+      "end_time": "13:58:34",
+      "duration": "6m 26s",
+      "job_error": "Network Connection Lost: Remote host closed connection",
+      "source": "Queue",
+      "machine": "BOT-VM-05"
+    },
+    {
+      "job_id": "J-48265",
+      "release_name": "Report_Generation",
+      "state": "Faulted",
+      "start_time": "13:41:15",
+      "end_time": "13:42:03",
+      "duration": "48s",
+      "job_error": "File Not Found: template_report_2024.xlsx",
+      "source": "Schedule",
+      "machine": "BOT-VM-02"
+    },
+    {
+      "job_id": "J-48254",
+      "release_name": "Data_Extract_Daily",
+      "state": "Faulted",
+      "start_time": "13:28:45",
+      "end_time": "13:29:12",
+      "duration": "27s",
+      "job_error": "Authentication Error: Invalid credentials for database",
+      "source": "Schedule",
+      "machine": "BOT-VM-04"
+    },
+    {
+      "job_id": "J-48243",
+      "release_name": "Email_Automation",
+      "state": "Faulted",
+      "start_time": "13:15:33",
+      "end_time": "13:16:45",
+      "duration": "1m 12s",
+      "job_error": "Selector Not Found: Button .send-email",
+      "source": "Manual",
+      "machine": "BOT-VM-07"
+    },
+    {
+      "job_id": "J-48231",
+      "release_name": "Inventory_Sync",
+      "state": "Faulted",
+      "start_time": "13:02:18",
+      "end_time": "13:08:56",
+      "duration": "6m 38s",
+      "job_error": "System Resource Error: Insufficient memory available",
+      "source": "Schedule",
+      "machine": "BOT-VM-06"
+    },
+    {
+      "job_id": "J-48219",
+      "release_name": "Payment_Processing",
+      "state": "Faulted",
+      "start_time": "12:48:27",
+      "end_time": "12:49:05",
+      "duration": "38s",
+      "job_error": "API Rate Limit: Maximum requests exceeded (429)",
+      "source": "Queue",
+      "machine": "BOT-VM-01"
+    },
+    {
+      "job_id": "J-48207",
+      "release_name": "Order_Fulfillment",
+      "state": "Faulted",
+      "start_time": "12:35:42",
+      "end_time": "12:41:18",
+      "duration": "5m 36s",
+      "job_error": "Timeout Exception: API response timeout after 120s",
+      "source": "Schedule",
+      "machine": "BOT-VM-03"
+    }
+  ]
 }

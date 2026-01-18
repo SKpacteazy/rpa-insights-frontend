@@ -93,15 +93,29 @@ const DashboardHome = () => {
                 const startDateStr = null;
                 const endDateStr = null;
 
-                const service = DashboardService(axiosInstance);
-                const [volume, trend, statusDist, aging, perf, benchmark] = await Promise.all([
-                    service.getQueueVolume(startDateStr, endDateStr),
-                    service.getTrend(startDateStr, endDateStr),
-                    service.getStatusDist(startDateStr, endDateStr),
-                    service.getAging(startDateStr, endDateStr),
-                    service.getPerformance(startDateStr, endDateStr),
-                    service.getBenchmarking(startDateStr, endDateStr)
-                ]);
+                let volume, trend, statusDist, aging, perf, benchmark;
+
+                try {
+                    const service = DashboardService(axiosInstance);
+                    [volume, trend, statusDist, aging, perf, benchmark] = await Promise.all([
+                        service.getQueueVolume(startDateStr, endDateStr),
+                        service.getTrend(startDateStr, endDateStr),
+                        service.getStatusDist(startDateStr, endDateStr),
+                        service.getAging(startDateStr, endDateStr),
+                        service.getPerformance(startDateStr, endDateStr),
+                        service.getBenchmarking(startDateStr, endDateStr)
+                    ]);
+                } catch (apiError) {
+                    console.warn("Backend API unreachable, falling back to mock data:", apiError);
+                    const response = await fetch('/data/dashboard.json');
+                    const mockData = await response.json();
+
+                    // If we use mock data, we just return early after setting the state
+                    // or we map it to the variables expected by the rest of the function.
+                    setData(mockData);
+                    setLoading(false);
+                    return;
+                }
 
                 // --- Transformation Logic ---
 

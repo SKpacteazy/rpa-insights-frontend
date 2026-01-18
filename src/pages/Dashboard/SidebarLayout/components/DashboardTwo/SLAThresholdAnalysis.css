@@ -248,29 +248,32 @@
 
 
 
+/* Responsive Breakpoints matching user requirements:
+   Desktop (1440px+), Laptop Large (1366-1439), Laptop Medium (1280-1365), 
+   Laptop Small (1024-1279), Tab (768-1023) */
+
 @media screen and (max-width: 1439px) {
-    .sla-threshold-wrapper {
-        gap: 16px;
-    }
-
-    .sla-metric-card-compact {
-        padding: 20px;
-    }
-
-    .metric-value-compact {
-        font-size: 24px;
-    }
-}
-
-
-@media screen and (max-width: 1365px) {
+    /* Laptop Large & below: Wrap to column layout to fix spacing issues */
     .sla-threshold-wrapper {
         flex-direction: column;
+        gap: 20px;
     }
 
     .sla-metrics-grid {
         flex-direction: row;
         width: 100%;
+        gap: 20px;
+    }
+
+    .sla-metric-card-compact {
+        width: 100%;
+        max-width: none; /* Allow cards to stretch in stacked view */
+        flex: 1;
+        padding: 20px;
+    }
+
+    .metric-value-compact {
+        font-size: 24px;
     }
 
     .sla-chart-card {
@@ -278,13 +281,21 @@
     }
 
     .vertical-bar-chart {
-        justify-content: center;
-        gap: 32px;
+        justify-content: space-around;
+        gap: 24px;
+        padding: 0 20px;
     }
 }
 
+@media screen and (max-width: 1365px) {
+    /* Laptop Medium specific adjustments */
+    .metric-value-compact {
+        font-size: 23px;
+    }
+}
 
 @media screen and (max-width: 1279px) {
+    /* Laptop Small specific adjustments */
     .metric-value-compact {
         font-size: 22px;
     }
@@ -292,14 +303,14 @@
     .chart-main-content {
         gap: 20px;
     }
-
+    
     .vertical-bar-chart {
-        gap: 20px;
+        gap: 16px; 
     }
 }
 
-
 @media screen and (max-width: 768px) {
+    /* Tablet / Mobile View */
     .sla-metrics-grid {
         flex-direction: column;
     }
@@ -325,15 +336,15 @@
         border-top: 1px solid #F3F4F6;
         justify-content: flex-start;
         gap: 24px;
+        flex-wrap: wrap;
     }
 
     .vertical-bar-chart {
         padding: 0 10px 20px 10px;
         gap: 12px;
-        justify-content: space-around;
+        justify-content: space-between;
     }
 }
-
 
 @media screen and (max-width: 540px) {
     .sla-metric-card-compact {
