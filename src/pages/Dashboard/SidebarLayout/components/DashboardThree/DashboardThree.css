@@ -1,6 +1,3 @@
-
-
-
 .dashboard-three-container {
     padding: 24px 32px;
     background-color: #F9FAFB;
@@ -23,12 +20,19 @@
 }
 
 .d3-title-container h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
+    justify-content: space-between;
+    gap: 16px;
+    width: 307px;
+    height: 54px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    border-radius: 8px;
+    padding: 12px 24px;
     margin: 0;
     cursor: pointer;
 }
@@ -54,15 +58,15 @@
 }
 
 .d3-cards-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 16px;
-    flex-wrap: wrap;
 }
 
 
 .d3-stat-card {
-    width: 257px;
-    height: 155px;
+    width: 100%;
+    min-height: 155px;
     background: white;
     border-radius: 12px;
     border: 0.5px solid #E5E7EB;
@@ -145,7 +149,8 @@
 
 
 .d3-dist-card {
-    width: 529px;
+    flex: 1;
+    min-width: 400px;
     height: 320px;
     display: flex;
     flex-direction: column;
@@ -154,13 +159,16 @@
 .d3-pie-content {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
+    gap: 40px;
 }
 
 .d3-pie-wrapper {
     position: relative;
-    flex: 1;
-    height: 100%;
+    width: 240px;
+    height: 240px;
+    flex-shrink: 0;
 }
 
 .d3-pie-center-text {
@@ -188,6 +196,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    flex-shrink: 0;
 }
 
 .d3-legend-item {
@@ -222,7 +231,8 @@
 
 
 .d3-trend-card {
-    width: 1077px;
+    flex: 2;
+    min-width: 600px;
     height: 320px;
     display: flex;
     flex-direction: column;
@@ -263,7 +273,8 @@
 }
 
 .d3-time-perf-card {
-    width: 766px;
+    flex: 1;
+    min-width: 500px;
     height: 300px;
     background: white;
     border-radius: 16px;
@@ -296,7 +307,8 @@
 }
 
 .d3-failure-card {
-    width: 840px;
+    flex: 1.1;
+    min-width: 500px;
     height: 300px;
     background: white;
     border-radius: 16px;
@@ -342,8 +354,9 @@
 
 
 .d3-top-failures {
-    width: 783px; 
-    height: 360px; 
+    flex: 1;
+    min-width: 500px;
+    height: 360px;
     overflow: hidden;
 }
 
@@ -403,8 +416,9 @@
 
 
 .d3-jobs-release {
-    width: 823px; 
-    height: 360px; 
+    flex: 1;
+    min-width: 500px;
+    height: 360px;
     overflow: hidden;
 }
 
@@ -421,9 +435,10 @@
     text-align: left;
     background-color: #ECFDF5;
     color: #111827;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 700;
     padding: 12px 16px;
+    white-space: nowrap;
 }
 
 .d3-custom-table th:first-child {
@@ -523,7 +538,8 @@
 
 
 .d3-trigger-card {
-    width: 530px;
+    flex: 1;
+    min-width: 350px;
     height: 389px;
     background: white;
     border-radius: 16px;
@@ -578,10 +594,21 @@
     height: 100%;
 }
 
-.d3-progress-segment.dark { background-color: #1F4E56; }
-.d3-progress-segment.light { background-color: #6B7280; }
-.d3-progress-segment.green { background-color: #10B981; }
-.d3-progress-segment.yellow { background-color: #F59E0B; }
+.d3-progress-segment.dark {
+    background-color: #1F4E56;
+}
+
+.d3-progress-segment.light {
+    background-color: #6B7280;
+}
+
+.d3-progress-segment.green {
+    background-color: #10B981;
+}
+
+.d3-progress-segment.yellow {
+    background-color: #F59E0B;
+}
 
 .d3-legend-small {
     display: flex;
@@ -599,10 +626,22 @@
     display: inline-block;
     margin-right: 4px;
 }
-.dot.dark { background-color: #1F4E56; }
-.dot.light { background-color: #6B7280; }
-.dot.green { background-color: #10B981; }
-.dot.yellow { background-color: #F59E0B; }
+
+.dot.dark {
+    background-color: #1F4E56;
+}
+
+.dot.light {
+    background-color: #6B7280;
+}
+
+.dot.green {
+    background-color: #10B981;
+}
+
+.dot.yellow {
+    background-color: #F59E0B;
+}
 
 
 .d3-runtime-row {
@@ -622,15 +661,33 @@
     height: 60px;
 }
 
-.d3-runtime-box strong { font-size: 18px; line-height: 1.2; }
-.d3-runtime-box span { font-size: 12px; font-weight: 500; opacity: 0.9; }
-.d3-runtime-box.dark { background-color: #1F4E56; }
-.d3-runtime-box.yellow { background-color: #F59E0B; }
-.d3-runtime-box.gray { background-color: #6B7280; }
+.d3-runtime-box strong {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.d3-runtime-box span {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.d3-runtime-box.dark {
+    background-color: #1F4E56;
+}
+
+.d3-runtime-box.yellow {
+    background-color: #F59E0B;
+}
+
+.d3-runtime-box.gray {
+    background-color: #6B7280;
+}
 
 
 .d3-long-running-card {
-    width: 1057px;
+    flex: 2;
+    min-width: 600px;
     height: 389px;
     background: white;
     border-radius: 16px;
@@ -679,11 +736,13 @@
     border-color: #FCD34D;
     color: #B45309;
 }
+
 .risk-orange {
     background-color: #FFF7ED;
     border-color: #FDBA74;
     color: #9A3412;
 }
+
 .risk-red {
     background-color: #FEF2F2;
     border-color: #FECACA;
@@ -724,26 +783,37 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    table-layout: auto;
 }
 
 .d3-risk-table th {
     text-align: left;
     background-color: #ECFDF5;
     color: #111827;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    padding: 12px;
+    padding: 12px 10px;
     border-bottom: 1px solid #E5E7EB;
+    white-space: nowrap;
 }
-.d3-risk-table th:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
-.d3-risk-table th:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+
+.d3-risk-table th:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.d3-risk-table th:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 
 .d3-risk-table td {
-    padding: 12px;
+    padding: 12px 10px;
     font-size: 13px;
     color: #374151;
     border-bottom: 1px solid #F3F4F6;
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 .status-badge {
@@ -754,8 +824,14 @@
     color: white;
     display: inline-block;
 }
-.status-badge.running { background-color: #1F4E56; }
-.status-badge.pending { background-color: #F59E0B; }
+
+.status-badge.running {
+    background-color: #1F4E56;
+}
+
+.status-badge.pending {
+    background-color: #F59E0B;
+}
 
 .risk-badge {
     padding: 4px 10px;
@@ -767,9 +843,18 @@
     min-width: 60px;
     text-align: center;
 }
-.risk-badge.high { background-color: #EF4444; }
-.risk-badge.medium { background-color: #F59E0B; }
-.risk-badge.critical { background-color: #991B1B; }
+
+.risk-badge.high {
+    background-color: #EF4444;
+}
+
+.risk-badge.medium {
+    background-color: #F59E0B;
+}
+
+.risk-badge.critical {
+    background-color: #991B1B;
+}
 
 
 .d3-live-ops-row {
@@ -778,7 +863,7 @@
 }
 
 .d3-live-ops-card {
-    width: 1632px;
+    width: 100%;
     height: auto;
     background: white;
     border-radius: 16px;
@@ -788,6 +873,7 @@
     display: flex;
     flex-direction: column;
     height: auto;
+    overflow: hidden;
 }
 
 .d3-live-ops-card h3 {
@@ -799,7 +885,8 @@
 
 .d3-live-table-container {
     flex: 1;
-    overflow: visible;
+    overflow-x: auto;
+    width: 100%;
 }
 
 .d3-live-table {
@@ -810,15 +897,23 @@
 
 .d3-live-table th {
     text-align: left;
-    background-color: #FEF2F2; 
+    background-color: #FEF2F2;
     color: #111827;
     font-size: 12px;
     font-weight: 600;
     padding: 12px 16px;
     white-space: nowrap;
 }
-.d3-live-table th:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
-.d3-live-table th:last-child { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+
+.d3-live-table th:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.d3-live-table th:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 
 .d3-live-table td {
     padding: 12px 16px;
@@ -829,7 +924,7 @@
 }
 
 .job-id-col {
-    color: #0F766E; 
+    color: #0F766E;
     font-weight: 500;
 }
 
@@ -841,8 +936,9 @@
     color: white;
     display: inline-block;
 }
+
 .live-status-badge.faulted {
-    background-color: #B91C1C; 
+    background-color: #B91C1C;
 }
 
 .error-text {
@@ -861,9 +957,18 @@
     color: white;
     display: inline-block;
 }
-.live-source-badge.schedule { background-color: #10B981; }
-.live-source-badge.manual { background-color: #6B7280; }
-.live-source-badge.queue { background-color: #1F4E56; }
+
+.live-source-badge.schedule {
+    background-color: #10B981;
+}
+
+.live-source-badge.manual {
+    background-color: #6B7280;
+}
+
+.live-source-badge.queue {
+    background-color: #1F4E56;
+}
 
 .machine-text {
     color: #6B7280;
@@ -873,7 +978,33 @@
 
 
 
-@media (min-width: 1650px) {
+@media (min-width: 1440px) {
+    .d3-dist-card {
+        padding: 32px;
+    }
+    .d3-chart-card h3 {
+        font-size: 18px;
+    }
+    .d3-pie-wrapper {
+        width: 260px;
+        height: 260px;
+    }
+    .d3-pie-total {
+        font-size: 32px;
+    }
+    .d3-pie-sub {
+        font-size: 14px;
+    }
+    .d3-legend-name {
+        font-size: 15px;
+    }
+    .d3-legend-val {
+        font-size: 14px;
+    }
+    .d3-pie-legend {
+        width: 240px;
+        gap: 16px;
+    }
 }
 
 
@@ -909,29 +1040,127 @@
 }
 
 
-@media (min-width: 1366px) and (max-width: 1439px) {
-    .d3-stat-card {
-        flex: 1 1 200px;
-        max-width: 257px;
-    }
-}
-
-@media (min-width: 1280px) and (max-width: 1365px) {
-    .d3-stat-card {
-        flex: 1 1 30%;
+@media (max-width: 1650px) {
+    .d3-cards-container {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width: 1024px) and (max-width: 1279px) {
-    .d3-stat-card {
-        flex: 1 1 30%;
+    .d3-live-table-container {
+        overflow-x: auto;
+    }
+
+    .d3-live-table {
+        min-width: 1000px;
+    }
+
+    .d3-trigger-card,
+    .d3-long-running-card {
+        min-width: 0;
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .d3-long-content {
+        flex-direction: column;
+    }
+
+    .d3-risk-cards {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .d3-risk-box {
+        flex: 1;
+        width: auto;
+        min-width: 200px;
+    }
+
+    .d3-analysis-row {
+        flex-wrap: wrap;
+    }
+
+    .d3-live-ops-card {
+        width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 1365px) {
+
+    .d3-charts-row,
+    .d3-performance-row,
+    .d3-bottom-row {
+        flex-direction: column;
+    }
+
+    .d3-dist-card,
+    .d3-trend-card,
+    .d3-time-perf-card,
+    .d3-failure-card,
+    .d3-top-failures,
+    .d3-jobs-release {
+        width: 100%;
+        max-width: none;
+    }
+
+    .d3-pie-content {
+        justify-content: center;
+    }
+
+    .d3-trigger-card,
+    .d3-long-running-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .d3-long-content {
+        flex-direction: column;
+    }
+
+    .d3-risk-cards {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .d3-risk-box {
+        flex: 1;
+        width: auto;
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .d3-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .d3-risk-cards {
+        flex-direction: column;
+    }
+
+    .d3-risk-box {
+        width: 100%;
+    }
+
+    .d3-live-ops-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .d3-live-table-container {
+        overflow-x: auto;
+    }
+
+    .d3-live-table {
+        min-width: 900px;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-    .d3-stat-card {
-        flex: 1 1 45%;
-    }
 
     .d3-dist-card,
     .d3-trend-card {
@@ -940,6 +1169,10 @@
 }
 
 @media (max-width: 767px) {
+    .d3-cards-container {
+        grid-template-columns: 1fr;
+    }
+
     .d3-stat-card {
         width: 100%;
         max-width: none;
@@ -976,46 +1209,5 @@
     .d3-metric-box {
         flex: 1;
         min-width: 140px;
-    }
-}
-
-
-@media (max-width: 1650px) {
-}
-@media (max-width: 1365px) {
-    .d3-trigger-card {
-        width: 100%;
-        height: auto;
-    }
-    .d3-long-running-card {
-        width: 100%;
-        height: auto;
-    }
-    .d3-long-content {
-        flex-direction: column;
-    }
-    .d3-risk-cards {
-        width: 100%; 
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    .d3-risk-box {
-        flex: 1;
-        width: auto;
-        min-width: 200px;
-    }
-}
-@media (max-width: 1024px) {
-    .d3-risk-cards {
-        flex-direction: column;
-    }
-    .d3-risk-box {
-        width: 100%;
-    }
-    
-    .d3-live-ops-card {
-        width: 100%; 
-        height: auto;
-        overflow-x: auto; 
     }
 }

@@ -208,9 +208,18 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1365px) {
+    .main-content {
+        padding: 1.5rem;
+    }
     .global-search {
         display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 1rem;
     }
 }
 

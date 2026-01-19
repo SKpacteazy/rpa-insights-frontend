@@ -13,9 +13,19 @@
 }
 
 .header-title-group h2 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #111827;
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 352px;
+    height: 54px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    border-radius: 8px;
+    padding: 12px 24px;
     margin: 0;
 }
 
@@ -58,30 +68,36 @@
 
 
 .sla-section-1 {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr 1.5fr 1fr;
+    display: flex;
     gap: 16px;
     margin-bottom: 24px;
     width: 100%;
-    max-width: 1622px;
+    align-items: flex-start;
 }
 
 .sla-compliance-card {
     position: relative;
-    width: 100%;
-    min-height: 309px;
+    width: 393px;
+    height: 309px;
+    flex-shrink: 0;
     border-radius: 16px;
     border-width: 0.5px;
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .gauge-wrapper {
     position: relative;
     width: 100%;
-    height: 210px;
+    flex: 1;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: -10px;
+    /* Slight pull up to center better visually */
 }
 
 .gauge-center-value {
@@ -110,9 +126,10 @@
 .sla-compliance-footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 16px;
+    margin-top: auto;
     padding-top: 16px;
     border-top: 1px solid #F3F4F6;
+    flex-shrink: 0;
 }
 
 .footer-metric {
@@ -142,7 +159,9 @@
     display: flex;
     flex-direction: column;
     gap: 17px;
-    height: 100%;
+    width: 245px;
+    height: 309px;
+    flex-shrink: 0;
 }
 
 .sla-metric-card {
@@ -222,8 +241,9 @@
 
 
 .sla-trend-card {
-    width: 100%;
-    min-height: 309px;
+    width: 540px;
+    height: 309px;
+    flex-shrink: 0;
     border-radius: 16px;
     border-width: 0.5px;
 }
@@ -236,8 +256,9 @@
 
 
 .sla-breaches-card {
-    width: 100%;
-    min-height: 303px;
+    width: 396px;
+    height: 303px;
+    flex-shrink: 0;
     border-radius: 16px;
     border-width: 0.5px;
 }
@@ -868,7 +889,7 @@
 
 .top-failures-card {
     width: 100%;
-    max-width: 1622px;
+    max-width: none;
     height: auto;
     min-height: 580px;
     border-radius: 16px;
@@ -970,7 +991,7 @@
 
 .failed-items-card {
     width: 100%;
-    max-width: 1622px;
+    max-width: none;
     min-height: 627px;
     height: auto;
     border-radius: 16px;
@@ -1146,27 +1167,76 @@
 
 @media screen and (min-width: 1440px) {
     .dashboard-two-container {
-        max-width: 1680px;
-        margin: 0 auto;
+        max-width: none;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .dashboard-two-container {
+        max-width: none;
+        width: 100%;
+    }
+
+    .sla-compliance-card {
+        width: auto;
+        flex: 393;
+    }
+
+    .sla-metrics-container {
+        width: auto;
+        flex: 245;
+    }
+
+    .sla-trend-card {
+        width: auto;
+        flex: 540;
+    }
+
+    .sla-breaches-card {
+        width: auto;
+        flex: 396;
     }
 }
 
 @media screen and (max-width: 1439px) {
     .sla-section-1 {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-    }
-    
-    .sla-metrics-container {
-        flex-direction: row;
-        height: auto;
+        flex-wrap: wrap;
     }
 
-    .sla-section-3, .sla-section-4 {
+    .sla-compliance-card {
+        width: calc(50% - 8px);
+        height: auto;
+        min-height: 309px;
+    }
+
+    .sla-metrics-container {
+        width: calc(50% - 8px);
+        height: auto;
+        min-height: 309px;
+    }
+
+    .sla-trend-card {
+        width: calc(50% - 8px);
+        height: auto;
+        min-height: 309px;
+    }
+
+    .sla-breaches-card {
+        width: calc(50% - 8px);
+        height: auto;
+        min-height: 303px;
+    }
+
+    .sla-section-3,
+    .sla-section-4 {
         flex-direction: column;
     }
 
-    .exception-card, .failures-queue-card, .retry-card, .failure-trend-card {
+    .exception-card,
+    .failures-queue-card,
+    .retry-card,
+    .failure-trend-card {
         width: 100% !important;
         flex: none;
     }
@@ -1185,8 +1255,10 @@
 }
 
 @media screen and (max-width: 1365px) {
-    .dashboard-two-container { padding: 16px; }
-    
+    .dashboard-two-container {
+        padding: 16px;
+    }
+
     .failure-reason-row {
         grid-template-columns: 32px 200px 1fr 60px;
     }
@@ -1194,12 +1266,21 @@
 
 @media screen and (max-width: 1279px) {
     .sla-section-1 {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .sla-compliance-card,
+    .sla-metrics-container,
+    .sla-trend-card,
+    .sla-breaches-card {
+        width: 100%;
+        height: auto;
     }
 
     .sla-metrics-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        min-height: 0;
     }
 }
 
@@ -1247,7 +1328,9 @@
 }
 
 @media screen and (max-width: 539px) {
-    .sla-metrics-container, .retry-metrics-grid {
+
+    .sla-metrics-container,
+    .retry-metrics-grid {
         grid-template-columns: 1fr;
     }
 

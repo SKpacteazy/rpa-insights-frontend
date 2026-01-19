@@ -1,10 +1,8 @@
-
-
 .sla-threshold-wrapper {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 24px;
     width: 100%;
-    align-items: stretch;
 }
 
 
@@ -17,7 +15,7 @@
 .sla-metric-card-compact {
     background: white;
     width: 100%;
-    max-width: 245px;
+    flex: 1;
     min-height: 169px;
     padding: 16px;
     border-radius: 12px;
@@ -248,12 +246,11 @@
 
 
 
-/* Responsive Breakpoints matching user requirements:
-   Desktop (1440px+), Laptop Large (1366-1439), Laptop Medium (1280-1365), 
-   Laptop Small (1024-1279), Tab (768-1023) */
+
 
 @media screen and (max-width: 1439px) {
-    /* Laptop Large & below: Wrap to column layout to fix spacing issues */
+
+    
     .sla-threshold-wrapper {
         flex-direction: column;
         gap: 20px;
@@ -267,7 +264,8 @@
 
     .sla-metric-card-compact {
         width: 100%;
-        max-width: none; /* Allow cards to stretch in stacked view */
+        max-width: none;
+        
         flex: 1;
         padding: 20px;
     }
@@ -288,14 +286,15 @@
 }
 
 @media screen and (max-width: 1365px) {
-    /* Laptop Medium specific adjustments */
+
+    
     .metric-value-compact {
         font-size: 23px;
     }
 }
 
 @media screen and (max-width: 1279px) {
-    /* Laptop Small specific adjustments */
+
     .metric-value-compact {
         font-size: 22px;
     }
@@ -303,14 +302,15 @@
     .chart-main-content {
         gap: 20px;
     }
-    
+
     .vertical-bar-chart {
-        gap: 16px; 
+        gap: 16px;
     }
 }
 
 @media screen and (max-width: 768px) {
-    /* Tablet / Mobile View */
+
+    
     .sla-metrics-grid {
         flex-direction: column;
     }
