@@ -48,6 +48,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                         </NavLink>
                     </li>
                     <li className="menu-item">
+                        <NavLink to="/dashboard-4" className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}>
+                            <LayoutDashboard size={20} />
+                            <span>Dashboard 4</span>
+                        </NavLink>
+                    </li>
+                    <li className="menu-item">
                         <NavLink to="/configuration" className={({ isActive }) => `menu-link ${isActive ? 'active' : ''}`}>
                             <Sliders size={20} />
                             <span>Configuration</span>

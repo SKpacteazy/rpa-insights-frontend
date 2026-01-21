@@ -2,57 +2,57 @@
   "job_execution_analytics": [
     {
       "id": 1,
-      "title": "Total Jobs",
+      "title": "Total Bots",
       "value": "2,847",
-      "growth": "+12%",
-      "icon": "FileText",
+      "growth": "100%",
+      "icon": "Calendar",
       "icon_bg": "#ECFDF5",
       "icon_color": "#10B981"
     },
     {
       "id": 2,
-      "title": "Pending Jobs",
+      "title": "Active Bots",
       "value": "342",
-      "growth": "+8%",
-      "icon": "Clock",
-      "icon_bg": "#FEF3C7",
-      "icon_color": "#F59E0B"
-    },
-    {
-      "id": 3,
-      "title": "Running Jobs",
-      "value": "89",
-      "growth": "+12%",
-      "icon": "PlayCircle",
-      "icon_bg": "#CCFBF1",
-      "icon_color": "#14B8A6"
-    },
-    {
-      "id": 4,
-      "title": "Successful Jobs",
-      "value": "2,198",
-      "growth": "+12%",
+      "growth": "+5%",
       "icon": "CheckCircle2",
       "icon_bg": "#ECFDF5",
       "icon_color": "#10B981"
     },
     {
-      "id": 5,
-      "title": "Failed Jobs",
-      "value": "187",
-      "growth": "+12%",
-      "icon": "XCircle",
+      "id": 3,
+      "title": "Idle Bots",
+      "value": "89",
+      "growth": "-3%",
+      "icon": "MinusCircle",
       "icon_bg": "#FEF2F2",
       "icon_color": "#EF4444"
     },
     {
+      "id": 4,
+      "title": "Saturation",
+      "value": "2,198",
+      "growth": "+2%",
+      "icon": "Star",
+      "icon_bg": "#ECFDF5",
+      "icon_color": "#1F4E56"
+    },
+    {
+      "id": 5,
+      "title": "Queue Ratio",
+      "value": "187",
+      "growth": "+8%",
+      "icon": "List",
+      "icon_bg": "#FFFBEB",
+      "icon_color": "#F59E0B"
+    },
+    {
       "id": 6,
-      "title": "Stopped / Terminated",
+      "title": "Peak Usage",
       "value": "31",
-      "growth": "+12%",
-      "icon": "Square",
-      "icon_bg": "#F3F4F6",
-      "icon_color": "#6B7280"
+      "growth": "-1%",
+      "icon": "Zap",
+      "icon_bg": "#E6F4F1",
+      "icon_color": "#1F4E56"
     }
   ],
   "job_state_distribution": {
@@ -1036,15 +1036,51 @@
     ]
   },
   "top_failure_reasons_extended": [
-    { "reason": "Timeout Exception", "count": 45, "percentage": "24.1%" },
-    { "reason": "Application Not Responding", "count": 38, "percentage": "20.3%" },
-    { "reason": "Selector Not Found", "count": 32, "percentage": "17.1%" },
-    { "reason": "Network Connection Lost", "count": 28, "percentage": "15.0%" },
-    { "reason": "Data Validation Failed", "count": 18, "percentage": "9.6%" },
-    { "reason": "File Not Found", "count": 12, "percentage": "6.4%" },
-    { "reason": "Authentication Error", "count": 7, "percentage": "3.7%" },
-    { "reason": "System Resource Error", "count": 4, "percentage": "2.1%" },
-    { "reason": "API Rate Limit", "count": 2, "percentage": "1.1%" }
+    {
+      "reason": "Timeout Exception",
+      "count": 45,
+      "percentage": "24.1%"
+    },
+    {
+      "reason": "Application Not Responding",
+      "count": 38,
+      "percentage": "20.3%"
+    },
+    {
+      "reason": "Selector Not Found",
+      "count": 32,
+      "percentage": "17.1%"
+    },
+    {
+      "reason": "Network Connection Lost",
+      "count": 28,
+      "percentage": "15.0%"
+    },
+    {
+      "reason": "Data Validation Failed",
+      "count": 18,
+      "percentage": "9.6%"
+    },
+    {
+      "reason": "File Not Found",
+      "count": 12,
+      "percentage": "6.4%"
+    },
+    {
+      "reason": "Authentication Error",
+      "count": 7,
+      "percentage": "3.7%"
+    },
+    {
+      "reason": "System Resource Error",
+      "count": 4,
+      "percentage": "2.1%"
+    },
+    {
+      "reason": "API Rate Limit",
+      "count": 2,
+      "percentage": "1.1%"
+    }
   ],
   "jobs_by_release_health": [
     {
@@ -1291,5 +1327,404 @@
       "source": "Schedule",
       "machine": "BOT-VM-03"
     }
-  ]
+  ],
+  "license_machine_efficiency": {
+    "metrics": [
+      {
+        "label": "Avg Jobs/Bot",
+        "value": "142"
+      },
+      {
+        "label": "Avg Jobs/Machine",
+        "value": "284"
+      },
+      {
+        "label": "Machine Util %",
+        "value": "71%"
+      }
+    ],
+    "jobs_processed": [
+      {
+        "name": "Bot-01",
+        "count": 450
+      },
+      {
+        "name": "Bot-03",
+        "count": 380
+      },
+      {
+        "name": "Bot-02",
+        "count": 320
+      },
+      {
+        "name": "Bot-04",
+        "count": 245
+      },
+      {
+        "name": "Bot-05",
+        "count": 160
+      },
+      {
+        "name": "Bot-06",
+        "count": 85
+      },
+      {
+        "name": "Bot-07",
+        "count": 42
+      },
+      {
+        "name": "Bot-08",
+        "count": 0
+      }
+    ]
+  },
+  "cost_savings_roi": {
+    "cost_saved": "$340K",
+    "automation_cost": "$50K",
+    "net_roi": "580%",
+    "comparison": [
+      {
+        "label": "Savings",
+        "value": 340000,
+        "color": "#10B981"
+      },
+      {
+        "label": "Cost",
+        "value": 50000,
+        "color": "#DC2626"
+      }
+    ]
+  },
+  "automation_coverage_demand": {
+    "metrics": [
+      {
+        "label": "Automated Processes",
+        "value": "78%",
+        "color": "#10B981"
+      },
+      {
+        "label": "Items per Bot",
+        "value": "182",
+        "color": "#1a202c"
+      },
+      {
+        "label": "Recommended Bots",
+        "value": "+3",
+        "color": "#F59E0B",
+        "bg": "#FFFBEB",
+        "border": "#FEF3C7"
+      }
+    ],
+    "forecast": [
+      {
+        "month": "Jan",
+        "demand": 1000,
+        "capacity": 1500
+      },
+      {
+        "month": "Feb",
+        "demand": 1150,
+        "capacity": 1500
+      },
+      {
+        "month": "Mar",
+        "demand": 1300,
+        "capacity": 1500
+      },
+      {
+        "month": "Apr",
+        "demand": 1600,
+        "capacity": 1500
+      },
+      {
+        "month": "May",
+        "demand": 2100,
+        "capacity": 1500
+      },
+      {
+        "month": "Jun",
+        "demand": 2800,
+        "capacity": 1500
+      }
+    ]
+  },
+  "bot_utilization_heatmap": {
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "bots": [
+      {
+        "name": "Bot-01",
+        "utilization": "78%",
+        "data": [
+          85,
+          82,
+          88,
+          75,
+          80,
+          72,
+          70
+        ]
+      },
+      {
+        "name": "Bot-02",
+        "utilization": "71%",
+        "data": [
+          75,
+          78,
+          72,
+          85,
+          65,
+          55,
+          60
+        ]
+      },
+      {
+        "name": "Bot-03",
+        "utilization": "58%",
+        "data": [
+          60,
+          65,
+          55,
+          45,
+          58,
+          52,
+          50
+        ]
+      },
+      {
+        "name": "Bot-04",
+        "utilization": "47%",
+        "data": [
+          45,
+          52,
+          48,
+          42,
+          55,
+          40,
+          38
+        ]
+      },
+      {
+        "name": "Bot-05",
+        "utilization": "32%",
+        "data": [
+          35,
+          38,
+          30,
+          42,
+          32,
+          28,
+          25
+        ]
+      },
+      {
+        "name": "Bot-06",
+        "utilization": "18%",
+        "data": [
+          20,
+          25,
+          8,
+          15,
+          22,
+          10,
+          12
+        ]
+      },
+      {
+        "name": "Bot-07",
+        "utilization": "5%",
+        "data": [
+          5,
+          0,
+          5,
+          8,
+          2,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Bot-08",
+        "utilization": "0%",
+        "data": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "legend": [
+      {
+        "label": "70-100%",
+        "color": "#13A51A"
+      },
+      {
+        "label": "50-70%",
+        "color": "#0F9D58"
+      },
+      {
+        "label": "30-50%",
+        "color": "#FBBC09"
+      },
+      {
+        "label": "10-30%",
+        "color": "#FF9800"
+      },
+      {
+        "label": "0-10%",
+        "color": "#C62828"
+      },
+      {
+        "label": "Idle",
+        "color": "#E0E0E0"
+      }
+    ]
+  },
+  "cost_optimization_actions": [
+    {
+      "id": "idle_cost",
+      "type": "error",
+      "title": "Idle License Cost",
+      "value": "$18,000/yr",
+      "description": "Bot-07, Bot-08",
+      "bg": "#FEF2F2",
+      "border": "#FECACA",
+      "color": "#DC2626"
+    },
+    {
+      "id": "savings",
+      "type": "success",
+      "title": "Potential Savings",
+      "value": "$18K/yr",
+      "description": "",
+      "bg": "#F0FDF4",
+      "border": "#BBF7D0",
+      "color": "#059669"
+    },
+    {
+      "id": "rec",
+      "type": "warning",
+      "title": "Recommendation",
+      "value": "Reallocate 2 idle licenses to high-demand queues",
+      "description": "",
+      "bg": "#FFFBEB",
+      "border": "#FEF3C7",
+      "color": "#92400E"
+    }
+  ],
+  "bot_busy_idle_hours": [
+    {
+      "name": "Bot-01",
+      "busy": 18,
+      "total": 24,
+      "percentage": "75%"
+    },
+    {
+      "name": "Bot-02",
+      "busy": 16.1,
+      "total": 24,
+      "percentage": "67%"
+    },
+    {
+      "name": "Bot-03",
+      "busy": 13.9,
+      "total": 24,
+      "percentage": "58%"
+    },
+    {
+      "name": "Bot-04",
+      "busy": 12,
+      "total": 24,
+      "percentage": "50%"
+    },
+    {
+      "name": "Bot-05",
+      "busy": 10.1,
+      "total": 24,
+      "percentage": "42%"
+    },
+    {
+      "name": "Bot-06",
+      "busy": 6,
+      "total": 24,
+      "percentage": "25%"
+    },
+    {
+      "name": "Bot-07",
+      "busy": 1.9,
+      "total": 24,
+      "percentage": "8%"
+    },
+    {
+      "name": "Bot-08",
+      "busy": 0,
+      "total": 24,
+      "percentage": "0%"
+    }
+  ],
+  "capacity_what_if": {
+    "scenarios": [
+      {
+        "id": "add_1",
+        "title": "Add 1 Bot",
+        "icon_val": "+1",
+        "type": "recommended",
+        "metrics": [
+          { "label": "SLA Compliance", "value": "91% \u2192 99%", "highlight": true, "color": "#13A51A" },
+          { "label": "Backlog Time", "value": "-2.3h", "color": "#13A51A" },
+          { "label": "ROI Payback", "value": "2 months", "color": "#13A51A" },
+          { "label": "Annual Cost", "value": "$9,000" }
+        ],
+        "status_text": "Recommended",
+        "status_icon": "check"
+      },
+      {
+        "id": "add_2",
+        "title": "Add 2 Bots",
+        "icon_val": "+2",
+        "type": "over_provisioned",
+        "metrics": [
+          { "label": "SLA Compliance", "value": "91% \u2192 100%", "highlight": true, "color": "#13A51A" },
+          { "label": "Backlog Time", "value": "-4.8h", "color": "#13A51A" },
+          { "label": "ROI Payback", "value": "4 months", "color": "#FBBC09" },
+          { "label": "Annual Cost", "value": "$18,000" }
+        ],
+        "status_text": "Over-provisioned",
+        "status_icon": ""
+      },
+      {
+        "id": "remove_1",
+        "title": "Remove 1 Bot",
+        "icon_val": "-1",
+        "type": "not_recommended",
+        "metrics": [
+          { "label": "SLA Compliance", "value": "91% \u2192 84%", "highlight": true, "color": "#C62828" },
+          { "label": "Backlog Time", "value": "+3.5h", "color": "#C62828" },
+          { "label": "SLA Risk", "value": "High", "color": "#C62828" },
+          { "label": "Annual Savings", "value": "$9,000", "color": "#13A51A" }
+        ],
+        "status_text": "Not Recommended",
+        "status_icon": "x"
+      }
+    ],
+    "forecast": [
+      { "week": "W1", "add1": 98, "current": 91, "remove1": 83 },
+      { "week": "W2", "add1": 97, "current": 90, "remove1": 82 },
+      { "week": "W3", "add1": 98.5, "current": 91, "remove1": 82.5 },
+      { "week": "W4", "add1": 98, "current": 89, "remove1": 81 },
+      { "week": "W5", "add1": 99, "current": 90, "remove1": 82 },
+      { "week": "W6", "add1": 99, "current": 91, "remove1": 84 }
+    ]
+  }
 }

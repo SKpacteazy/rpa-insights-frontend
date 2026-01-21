@@ -6,6 +6,7 @@ import DashboardLayout from '../pages/Dashboard/DashboardLayout/DashboardLayout'
 import DashboardHome from '../pages/Dashboard/SidebarLayout/components/DashboardHome/DashboardHome';
 import DashboardTwo from '../pages/Dashboard/SidebarLayout/components/DashboardTwo/DashboardTwo';
 import DashboardThree from '../pages/Dashboard/SidebarLayout/components/DashboardThree/DashboardThree';
+import DashboardFour from '../pages/Dashboard/SidebarLayout/components/DashboardFour/DashboardFour';
 import UiPathConfiguration from '../pages/Configuration/UiPathConfiguration';
 
 const PrivateRoute = () => {
@@ -30,6 +31,7 @@ const AppRoutes = () => {
                     <Route index element={<DashboardHome />} />
                     <Route path="dashboard-2" element={<DashboardTwo />} />
                     <Route path="dashboard-3" element={<DashboardThree />} />
+                    <Route path="dashboard-4" element={<DashboardFour />} />
                     <Route path="configuration" element={<UiPathConfiguration />} />
                     <Route path="settings" element={<div className="dashboard-page"><h1>Settings</h1></div>} />
                 </Route>
