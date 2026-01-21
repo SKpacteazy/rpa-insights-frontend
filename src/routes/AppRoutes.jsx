@@ -24,9 +24,7 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/login" element={<LoginPage />} />
 
-            <Route >
-                {/* <Route element={<PrivateRoute />}> */}
-                {/* <Route> */}
+            <Route element={<PrivateRoute />}>
                 <Route path="/" element={<DashboardLayout />}>
                     <Route index element={<DashboardHome />} />
                     <Route path="dashboard-2" element={<DashboardTwo />} />

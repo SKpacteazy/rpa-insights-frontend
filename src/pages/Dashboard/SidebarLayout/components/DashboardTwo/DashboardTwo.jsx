@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../../../../auth/AuthContext';
+import { DashboardSlaService } from '../../../../../services/dashboardSlaService';
 import { Calendar, AlertCircle, TrendingUp, TrendingDown, AlertTriangle, Activity, Clock, RefreshCw, ChevronDown } from 'lucide-react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -22,35 +24,157 @@ const CustomTrendTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-const staticFailedItems = [
-    { queue: "Payment Processing", item_id: "QI-2847", creation_time: "09:45:23", failure_time: "09:47:12", exception_type: "Business", reason: "Invalid payment credentials", retry: 2, sla_status: "Breached" },
-    { queue: "Email Notification", item_id: "QI-2846", creation_time: "09:42:15", failure_time: "09:46:08", exception_type: "System", reason: "SMTP connection timeout", retry: 3, sla_status: "At Risk" },
-    { queue: "Data Validation", item_id: "QI-2845", creation_time: "09:40:34", failure_time: "09:45:22", exception_type: "Business", reason: "Missing required field", retry: 1, sla_status: "Normal" },
-    { queue: "Payment Processing", item_id: "QI-2844", creation_time: "09:38:56", failure_time: "09:44:11", exception_type: "System", reason: "Database connection lost", retry: 4, sla_status: "Breached" },
-    { queue: "Report Generation", item_id: "QI-2843", creation_time: "09:35:12", failure_time: "09:43:45", exception_type: "Application", reason: "Memory limit exceeded", retry: 2, sla_status: "At Risk" },
-    { queue: "Data Validation", item_id: "QI-2842", creation_time: "09:32:48", failure_time: "09:42:33", exception_type: "Business", reason: "Duplicate record found", retry: 1, sla_status: "Normal" },
-    { queue: "Email Notification", item_id: "QI-2841", creation_time: "09:30:22", failure_time: "09:41:18", exception_type: "System", reason: "Service unavailable (503)", retry: 3, sla_status: "Breached" },
-    { queue: "Payment Processing", item_id: "QI-2840", creation_time: "09:28:09", failure_time: "09:40:05", exception_type: "Business", reason: "Insufficient balance", retry: 0, sla_status: "Normal" },
-    { queue: "Image Processing", item_id: "QI-2839", creation_time: "09:25:44", failure_time: "09:38:52", exception_type: "Application", reason: "Invalid file format", retry: 2, sla_status: "At Risk" },
-    { queue: "Data Validation", item_id: "QI-2838", creation_time: "09:22:31", failure_time: "09:37:20", exception_type: "System", reason: "API rate limit exceeded", retry: 5, sla_status: "Breached" }
-];
+
 
 const DashboardTwo = () => {
+    const { axiosInstance } = useAuth();
     const [dashboardData, setDashboardData] = useState(null);
+    const [recentFailedItems, setRecentFailedItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const formatDuration = (seconds) => {
+        if (!seconds) return '0s';
+        if (seconds < 60) return `${Math.round(seconds)}s`;
+        const mins = Math.floor(seconds / 60);
+        return `${mins}m ${Math.round(seconds % 60)}s`;
+    };
+
     useEffect(() => {
-        fetch('/data/dashboard.json')
-            .then(response => response.json())
-            .then(data => {
-                setDashboardData(data);
+        const fetchData = async () => {
+            if (!axiosInstance) return;
+
+            try {
+                const service = DashboardSlaService(axiosInstance);
+                const [
+                    compliance,
+                    risk,
+                    excAnalysis,
+                    retries,
+                    opRisk,
+                    failuresQueue,
+                    recentFailures,
+                    failureReasons,
+                    failureTrend,
+                    recentSlaBreaches
+                ] = await Promise.all([
+                    service.getSlaCompliance(),
+                    service.getSlaRisk(),
+                    service.getExceptionAnalysis(),
+                    service.getRetryMetrics(),
+                    service.getOperationalRisk(),
+                    service.getFailuresByQueue(),
+                    service.getRecentFailures(),
+                    service.getTopFailureReasons(),
+                    service.getFailureTrend(),
+                    service.getRecentSlaBreaches()
+                ]);
+
+                console.log("DEBUG: All Data Fetched");
+                console.log("Recent SLA Breaches Raw:", recentSlaBreaches);
+                console.log("Risk Data Raw:", risk);
+                console.log("Failure Trend Raw:", failureTrend);
+
+
+                setRecentFailedItems(recentFailures || []);
+
+                const totalFailuresFromQueue = (failuresQueue || []).reduce((acc, q) => acc + (q.failure_count || 0), 0);
+
+                const mappedData = {
+                    sla_monitoring: {
+                        compliance: {
+                            percentage: compliance?.sla_compliance_percent || 0,
+                            target: 95,
+                            breach_count: compliance?.sla_breach_count || 0
+                        },
+                        breach_metrics: {
+                            total_items: compliance?.sla_breach_count || 0,
+                            avg_duration: formatDuration(compliance?.avg_sla_breach_duration_seconds),
+                            change: "0%",
+                            duration_change: "0%",
+                            is_positive: true,
+                            duration_positive: true
+                        },
+                        breach_trend: (compliance?.sla_breach_trend || []).map(t => ({
+                            day: t?.time_bucket ? t.time_bucket.substring(5, 10) : 'N/A',
+                            breaches: t.breach_count
+                        })),
+                        recent_breaches: (recentSlaBreaches || []).map(item => ({
+                            id: item.queue_definition_id + '-' + item.id,
+                            name: `Queue Item #${item.id} (${item.state})`,
+                            time: formatDuration(item.duration_seconds),
+                            count: item.status
+                        })),
+                        aging_analysis: {
+                            data: risk?.aging_distribution || []
+                        },
+                        exception_analysis: {
+                            total_failures: totalFailuresFromQueue,
+                            breakdown: [
+                                { name: 'Business', value: 0, color: '#3B82F6', percentage: 0 },
+                                { name: 'System', value: totalFailuresFromQueue, color: '#EF4444', percentage: 100 },
+                                { name: 'Application', value: 0, color: '#10B981', percentage: 0 }
+                            ]
+                        },
+                        status_metrics: {
+                            close_to_breach: {
+                                value: risk?.items_close_to_sla_breach || 0,
+                                label: 'Items',
+                                title: 'Items Close to SLA Breach',
+                                change: '+0%' // Placeholder
+                            },
+                            breached: {
+                                value: risk?.items_breached_sla_current || 0,
+                                label: 'Items',
+                                title: 'Items Breached SLA',
+                                change: '+0%' // Placeholder
+                            },
+                            aging_rate: {
+                                value: (risk?.aging_breach_rate_percent || 0) + '%',
+                                title: 'Aging Breach Rate',
+                                change: '-0%' // Placeholder
+                            }
+                        },
+                        failures_by_queue: (failuresQueue || []).map(q => ({
+                            queue: q.queue_definition_id.toString(), // or name if available
+                            failures: q.failure_count
+                        })),
+                        retry_metrics: {
+                            retry_rate: { value: (retries?.retry_rate_percent || 0) + '%', change: '0%', is_positive: true },
+                            avg_retry_count: { value: (retries?.avg_retry_count || 0).toFixed(1) },
+                            retry_success: { value: (retries?.retry_success_rate_percent || 0) + '%' },
+                            distribution: retries?.distribution || []
+                        },
+                        system_health: {
+                            orphan_items: { value: opRisk?.orphan_items_count || 0, status: (opRisk?.orphan_items_count > 0) ? 'warning' : 'normal' },
+                            zombie_items: { value: opRisk?.zombie_items_count || 0, status: (opRisk?.zombie_items_count > 0) ? 'warning' : 'normal' },
+                            abandoned_rate: { value: (opRisk?.abandoned_item_rate_percent || 0) + '%', status: 'normal' }
+                        },
+                        failure_trend_24h: (failureTrend || []).map(t => ({
+                            time: t?.time_bucket ? t.time_bucket.substring(11, 16) : 'N/A',
+                            failures: t.failure_count,
+                            spike: false
+                        })),
+                        top_failure_reasons: (failureReasons || []).map((r, i) => ({
+                            id: i + 1,
+                            reason: r.failure_reason,
+                            count: r.failure_count,
+                            percentage: r.failure_percent
+                        })),
+                        top_failures_coverage: 100
+                    }
+                };
+
+                setDashboardData(mappedData);
                 setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error loading dashboard data:', error);
+
+            } catch (err) {
+                console.error("Dashboard load failed", err);
                 setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        fetchData();
+    }, [axiosInstance]);
 
     if (loading || !dashboardData) {
         return <div className="dashboard-two-container">Loading...</div>;
@@ -293,8 +417,8 @@ const DashboardTwo = () => {
                     <div className="queue-failures-list">
                         {sla_monitoring.failures_by_queue.map((queue, index) => {
                             let barColor = '#607D8B';
-                            if (index < 2) barColor = '#C62828'; 
-                            else if (index < 4) barColor = '#FBC02D'; 
+                            if (index < 2) barColor = '#C62828';
+                            else if (index < 4) barColor = '#FBC02D';
 
                             return (
                                 <div key={index} className="queue-failure-item">
@@ -492,8 +616,8 @@ const DashboardTwo = () => {
                     <div className="top-failures-table">
                         {sla_monitoring.top_failure_reasons.map((failure, index) => {
                             let barColor = '#819D99';
-                            if (index < 2) barColor = '#D35555'; 
-                            else if (index < 5) barColor = '#FCD34D'; 
+                            if (index < 2) barColor = '#D35555';
+                            else if (index < 5) barColor = '#FCD34D';
 
                             const barWidth = (failure.count / 550) * 100;
                             const showValueInside = barWidth > 20;
@@ -554,25 +678,25 @@ const DashboardTwo = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {staticFailedItems.map((item, index) => (
+                                {recentFailedItems.map((item, index) => (
                                     <tr key={index}>
                                         <td className="queue-cell">
-                                            <span className={`status-dot ${item.sla_status.toLowerCase().replace(' ', '-')}`}></span>
-                                            {item.queue}
+                                            <span className={`status-dot ${item.status === 'Failed' ? 'breached' : 'normal'}`}></span>
+                                            {item.queue_definition_id}
                                         </td>
-                                        <td>{item.item_id}</td>
+                                        <td>{item.id}</td>
                                         <td>{item.creation_time}</td>
                                         <td>{item.failure_time}</td>
                                         <td>
-                                            <span className={`exception-badge ${item.exception_type.toLowerCase()}`}>
-                                                {item.exception_type}
+                                            <span className="exception-badge system">
+                                                {item.exception_type || 'System'}
                                             </span>
                                         </td>
-                                        <td className="reason-cell">{item.reason}</td>
-                                        <td className="retry-cell">{item.retry}</td>
+                                        <td className="reason-cell">{item.failure_reason}</td>
+                                        <td className="retry-cell">{item.retry_number}</td>
                                         <td>
-                                            <span className={`sla-status-badge ${item.sla_status.toLowerCase().replace(' ', '-')}`}>
-                                                {item.sla_status}
+                                            <span className="sla-status-badge breached">
+                                                Failed
                                             </span>
                                         </td>
                                     </tr>

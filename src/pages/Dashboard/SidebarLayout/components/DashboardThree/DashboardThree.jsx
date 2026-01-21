@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../../../../auth/AuthContext';
+import { DashboardJobsService } from '../../../../../services/dashboardJobsService';
 import { ChevronDown, Calendar, FileText, Clock, PlayCircle, CheckCircle2, XCircle, Square, AlertTriangle } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ComposedChart, Area } from 'recharts';
 import './DashboardThree.css';
@@ -13,6 +15,7 @@ const IconMap = {
 };
 
 const DashboardThree = () => {
+    const { axiosInstance } = useAuth();
     const [jobData, setJobData] = useState([]);
     const [distData, setDistData] = useState(null);
     const [trendData, setTrendData] = useState(null);
@@ -27,47 +30,155 @@ const DashboardThree = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!axiosInstance) return;
+
             try {
-                const response = await fetch('/data/dashboard.json');
-                const result = await response.json();
-                if (result.job_execution_analytics) {
-                    setJobData(result.job_execution_analytics);
-                }
-                if (result.job_state_distribution) {
-                    setDistData(result.job_state_distribution);
-                }
-                if (result.job_volume_trend) {
-                    setTrendData(result.job_volume_trend);
-                }
-                if (result.job_time_performance) {
-                    setTimeData(result.job_time_performance);
-                }
-                if (result.failure_stability) {
-                    setFailureData(result.failure_stability);
-                }
-                if (result.top_failure_reasons_extended) {
-                    setTopFailures(result.top_failure_reasons_extended);
-                }
-                if (result.jobs_by_release_health) {
-                    setJobsByRelease(result.jobs_by_release_health);
-                }
-                if (result.job_trigger_analysis) {
-                    setTriggerData(result.job_trigger_analysis);
-                }
-                if (result.long_running_jobs) {
-                    setLongRunningData(result.long_running_jobs);
-                }
-                if (result.last_10_failed_jobs) {
-                    setLastFailedData(result.last_10_failed_jobs);
-                }
+                const service = DashboardJobsService(axiosInstance);
+                const [
+                    snapshot, dist, trend, perf, reliability,
+                    reasons, releases, triggers, risks, recentFailed
+                ] = await Promise.all([
+                    service.getJobsSnapshot(),
+                    service.getJobsDistribution(),
+                    service.getJobsTrend(),
+                    service.getJobsPerformance(),
+                    service.getJobsReliability(),
+                    service.getJobsFailureReasons(),
+                    service.getJobsByRelease(),
+                    service.getJobsTriggers(),
+                    service.getJobsRisk(24),
+                    service.getRecentFailedJobs(10)
+                ]);
+
+                // 1. Snapshot -> jobData Matches UI format
+                const s = snapshot;
+                setJobData([
+                    { id: 1, title: 'Total Jobs', value: s.total_jobs, growth: '+0%', icon: 'FileText', icon_bg: '#E0F2F1', icon_color: '#1F4E56' },
+                    { id: 2, title: 'Pending', value: s.pending, growth: '+0%', icon: 'Clock', icon_bg: '#FFF3E0', icon_color: '#F97316' },
+                    { id: 3, title: 'Running', value: s.running, growth: '+0%', icon: 'PlayCircle', icon_bg: '#E0F7FA', icon_color: '#06B6D4' },
+                    { id: 4, title: 'Successful', value: s.successful, growth: '+0%', icon: 'CheckCircle2', icon_bg: '#DCFCE7', icon_color: '#10B981' },
+                    { id: 5, title: 'Failed', value: s.failed, growth: '-0%', icon: 'XCircle', icon_bg: '#FEE2E2', icon_color: '#EF4444' },
+                    { id: 6, title: 'Stopped', value: s.stopped, growth: '+0%', icon: 'Square', icon_bg: '#F3F4F6', icon_color: '#6B7280' }
+                ]);
+
+                // 2. Distribution
+                const dCols = { 'Pending': '#F97316', 'Running': '#06B6D4', 'Successful': '#10B981', 'Failed': '#EF4444', 'Stopped': '#6B7280' };
+                const distList = Object.keys(dCols).map(k => ({
+                    name: k,
+                    value: snapshot[k.toLowerCase()] || 0,
+                    percentage: (dist[`${k.toLowerCase()}_percent`] || 0) + '%',
+                    color: dCols[k]
+                })).filter(i => i.value > 0);
+
+                setDistData({
+                    total: s.total_jobs,
+                    data: distList
+                });
+
+                // 3. Trend
+                // Merge separate lists (created, started, etc) by time_bucket
+                const mergedTrend = {};
+                (trend.jobs_created || []).forEach(x => { mergedTrend[x.time_bucket] = { time: x.time_bucket.substring(11, 16), Created: x.count }; });
+                (trend.jobs_started || []).forEach(x => {
+                    if (!mergedTrend[x.time_bucket]) mergedTrend[x.time_bucket] = { time: x.time_bucket.substring(11, 16) };
+                    mergedTrend[x.time_bucket].Started = x.count;
+                });
+                (trend.jobs_completed || []).forEach(x => {
+                    if (!mergedTrend[x.time_bucket]) mergedTrend[x.time_bucket] = { time: x.time_bucket.substring(11, 16) };
+                    mergedTrend[x.time_bucket].Completed = x.count;
+                });
+                (trend.jobs_failed || []).forEach(x => {
+                    if (!mergedTrend[x.time_bucket]) mergedTrend[x.time_bucket] = { time: x.time_bucket.substring(11, 16) };
+                    mergedTrend[x.time_bucket].Failed = x.count;
+                });
+                setTrendData(Object.values(mergedTrend).sort((a, b) => a.time.localeCompare(b.time)));
+
+                // 4. Performance (Time)
+                // Backend returns: avg_execution_seconds, max_execution_seconds, median_execution_seconds (global)
+                // And execution_trend: [{time_bucket, avg_exec_seconds}]
+                setTimeData({
+                    data: (perf.execution_trend || []).map(t => ({
+                        day: t.time_bucket.substring(11, 16),
+                        avg: Math.round(t.avg_exec_seconds / 60),
+                        median: Math.round(perf.median_execution_seconds / 60), // Global median as flat line
+                        max: Math.round(perf.max_execution_seconds / 60) // Global max as flat line
+                    }))
+                });
+
+                // 5. Reliability
+                setFailureData({
+                    metrics: reliability.metrics || { failure_rate: '0%', total_failures: 0, mtbf: 'N/A' },
+                    data: reliability.data || [] // Backend now returns daily trend
+                });
+
+                // 6. Top Failures
+                const totalFailures = reasons.reduce((acc, r) => acc + r.count, 0);
+                setTopFailures(reasons.map(r => ({
+                    reason: r.failure_reason,
+                    count: r.count,
+                    percentage: totalFailures > 0 ? Math.round((r.count / totalFailures) * 100) + '%' : '0%'
+                })));
+
+                // 7. By Release
+                setJobsByRelease(releases.map(r => ({
+                    release_name: r.release_name,
+                    job_count: r.job_count,
+                    failure_rate: r.failure_rate_percent + '%',
+                    is_high_risk: r.failure_rate_percent > 10,
+                    avg_exec_time: Math.round(r.avg_execution_seconds) + 's',
+                    last_failure: r.last_failure_time || '-'
+                })));
+
+                // 8. Triggers
+                const tManual = triggers.by_source.find(x => x.source === 'Manual')?.count || 0;
+                const tAgent = triggers.by_source.find(x => x.source === 'Agent')?.count || 0; // Assuming 'Agent' means Triggered
+                // Actually source can be anything. Let's assume Manual vs Others.
+                const tTotal = triggers.by_source.reduce((a, b) => a + b.count, 0);
+                const tTriggered = tTotal - tManual;
+
+                const uUnattended = triggers.by_type.find(x => x.type === 'Unattended')?.count || 0;
+                const uAttended = triggers.by_type.find(x => x.type === 'Attended')?.count || 0;
+
+                setTriggerData({
+                    triggered_vs_manual: {
+                        triggered: tTriggered,
+                        manual: tManual
+                    },
+                    attended_vs_unattended: {
+                        unattended: uUnattended,
+                        attended: uAttended
+                    },
+                    runtime_type: { production: uUnattended + uAttended, development: 0, testing: 0 } // Placeholder
+                });
+
+                // 9. Risks
+                setLongRunningData({
+                    risk_flags: risks.risk_flags,
+                    job_list: risks.job_list
+                });
+
+                // 10. Recent Failed
+                setLastFailedData(recentFailed.map(j => ({
+                    job_id: j.id,
+                    release_name: j.release_name,
+                    state: j.state,
+                    start_time: j.start_time,
+                    end_time: j.end_time,
+                    duration: j.formatted_duration,
+                    job_error: j.info,
+                    source: j.source,
+                    machine: j.host_machine_name
+                })));
+
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching Dashboard 3 data:", error);
             } finally {
                 setLoading(false);
             }
         };
+
         fetchData();
-    }, []);
+    }, [axiosInstance]);
 
     if (loading) return <div className="dashboard-three-loading">Loading...</div>;
 
